@@ -13,7 +13,7 @@ const applyForVerification = async (req, res) => {
         const applicationObjStudent = {
             institutionId: req.body.institutionId,
             institutionName: req.body.institutionName,
-            isVerified: false,
+            isVerified: 'PENDING',
             studentRollNo: req.body.studentSAPID,
             studentCgpa: req.body.studentCgpa,
             studentYearOfGraduation: req.body.studentYearOfGraduation,
