@@ -141,6 +141,20 @@ const ipfs = async (data) => {
     return url;
 };
 
+const encrypt = (data) => {
+    const encryptData = crypto.AES.encrypt(
+        JSON.stringify(data),
+        process.env.CRYPTO_KEY
+    ).toString();
+    return encryptData;
+};
+
+const decrypt = (data) => {
+    const bytes = crypto.AES.decrypt(data, process.env.CRYPTO_KEY);
+    const decryptData = JSON.parse(bytes.toString(crypto.enc.Utf8));
+    return decryptData;
+};
+
 module.exports = {
     generateOtp,
     sendEmail,
@@ -149,5 +163,7 @@ module.exports = {
     validatePassword,
     generateBearerToken,
     cloudinary,
-    ipfs
+    ipfs,
+    encrypt,
+    decrypt
 };
