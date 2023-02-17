@@ -14,6 +14,6 @@ router.post(
     applyForVerification
 );
 
-router.get('/all', [auth.verifyJwt, auth.roleStudent], viewAllInstitutions);
+router.get('/view-institutions', viewAllInstitutions);
 
 module.exports = router;
