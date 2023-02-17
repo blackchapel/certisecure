@@ -1,6 +1,11 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
+// blockchain
+import Web3 from 'web3';
+import * as ipfsClient from 'ipfs-http-client';
+import { Buffer } from 'buffer';
+
 // material-ui
 import { styled, useTheme } from '@mui/material/styles';
 import { Avatar, Box, Grid, Menu, MenuItem, Typography, Button, FormControl, Input, InputLabel, OutlinedInput } from '@mui/material';
@@ -66,6 +71,7 @@ const ApplCard = ({ isLoading, application }) => {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [open, setOpen] = useState(false);
+    const [file, setFile] = useState('');
 
     const handleClickOpenModal = () => {
         setOpen(true);
@@ -251,7 +257,7 @@ const ApplCard = ({ isLoading, application }) => {
                                     </Grid>
                                     <Grid item xs={12} md={8}>
                                         <InputLabel htmlFor="outlined-adornment">Upload Certificate</InputLabel>
-                                        <OutlinedInput id="outlined-adornment" type="file" />
+                                        <OutlinedInput id="outlined-adornment" type="file" onChange={(e) => setFile(e.target.files[0])} />
                                     </Grid>
                                 </Grid>
                             </DialogContentText>
@@ -295,6 +301,33 @@ const ApplCard = ({ isLoading, application }) => {
                                         variant="contained"
                                         sx={{
                                             boxShadow: 0
+                                        }}
+                                        onClick={async () => {
+                                            const auth =
+                                                'Basic ' +
+                                                Buffer.from(
+                                                    '2LrLRI8Ul7yT6Go7nbnCuFNVAqF' + ':' + 'a099e44fb1b99b82f48b12f4dc1e5af8'
+                                                ).toString('base64');
+                                            const client = ipfsClient.create({
+                                                host: 'ipfs.infura.io',
+                                                port: 5001,
+                                                protocol: 'https',
+                                                headers: {
+                                                    authorization: auth
+                                                }
+                                            });
+
+                                            let result = await client.add(file);
+                                            let url = 'https://dvki.infura-ipfs.io/ipfs' + result.path;
+
+                                            const web3 = new Web3(Web3.givenProvider);
+
+                                            const hashedMessage = web3.utils.sha3(Buffer.from(url).toString('base64'));
+
+                                            web3.eth.sign(hashedMessage, Web3.givenProvider.selectedAddress, function (err, result) {
+                                                console.log(err, result);
+                                                window.alert('Message signed!');
+                                            });
                                         }}
                                     >
                                         Approve
