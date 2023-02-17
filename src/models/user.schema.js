@@ -28,7 +28,13 @@ const userSchema = new mongoose.Schema(
         isdeleted: {
             type: Boolean,
             default: false
+        },
+        role: {
+            type: String,
+            enum: ['INSTITUTION', 'STUDENT']
         }
+        // STUDENT: appliedTo, isVerified
+        // INSTITUTION
     },
     { timestamps: true }
 );
