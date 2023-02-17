@@ -29,3 +29,19 @@ export const sendRequest = async (token, formData) => {
         throw err;
     }
 };
+
+export const getAllApplications = async (token) => {
+    try {
+        const { data } = await axios.get(url + '/user/application/all', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        console.log(data);
+        if (data) {
+            return data;
+        }
+    } catch (err) {
+        throw err;
+    }
+};

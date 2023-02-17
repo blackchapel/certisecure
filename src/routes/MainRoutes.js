@@ -6,7 +6,8 @@ import Loadable from 'ui-component/Loadable';
 
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
-const DashboardOrganization = Loadable(lazy(() => import('views/dashboard/Organization')));
+const DashboardOrganization = Loadable(lazy(() => import('views/dashboard/Organization/requests')));
+const OrganizationAdmissions = Loadable(lazy(() => import('views/dashboard/Organization/admissions')));
 // utilities routing
 const UtilsTypography = Loadable(lazy(() => import('views/utilities/Typography')));
 const UtilsColor = Loadable(lazy(() => import('views/utilities/Color')));

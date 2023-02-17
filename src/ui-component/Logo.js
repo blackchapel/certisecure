@@ -22,7 +22,14 @@ const Logo = () => {
          *
          *
          */
-        <img src={logo} alt="Certi Secure" width="170" />
+        <a
+            href="/"
+            style={{
+                textDecoration: 'none'
+            }}
+        >
+            <img src={logo} alt="Certi Secure" width="170" />
+        </a>
     );
 };
 

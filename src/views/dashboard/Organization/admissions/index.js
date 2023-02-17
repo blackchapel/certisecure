@@ -4,17 +4,17 @@ import { useEffect, useState } from 'react';
 import { Grid } from '@mui/material';
 
 // project imports
-import EarningCard from './EarningCard';
-import PopularCard from './PopularCard';
-import TotalOrderLineChartCard from './TotalOrderLineChartCard';
-import TotalIncomeDarkCard from './TotalIncomeDarkCard';
-import TotalIncomeLightCard from './TotalIncomeLightCard';
-import TotalGrowthBarChart from './TotalGrowthBarChart';
+import EarningCard from '../../Default/ApplCard';
+import PopularCard from '../PopularCard';
+import TotalOrderLineChartCard from '../TotalOrderLineChartCard';
+import TotalIncomeDarkCard from '../TotalIncomeDarkCard';
+import TotalIncomeLightCard from '../TotalIncomeLightCard';
+import TotalGrowthBarChart from '../TotalGrowthBarChart';
 import { gridSpacing } from 'store/constant';
 
 // ==============================|| DEFAULT DASHBOARD ||============================== //
 
-const DashboardOrganization = () => {
+const OrganizationAdmissions = () => {
     const [isLoading, setLoading] = useState(true);
     useEffect(() => {
         setLoading(false);
@@ -22,7 +22,7 @@ const DashboardOrganization = () => {
 
     return (
         <Grid container spacing={gridSpacing}>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
                 <Grid container spacing={gridSpacing}>
                     <Grid item lg={4} md={6} sm={6} xs={12}>
                         <EarningCard isLoading={isLoading} />
@@ -51,9 +51,9 @@ const DashboardOrganization = () => {
                         <PopularCard isLoading={isLoading} />
                     </Grid>
                 </Grid>
-            </Grid>
+            </Grid> */}
         </Grid>
     );
 };
 
-export default DashboardOrganization;
+export default OrganizationAdmissions;

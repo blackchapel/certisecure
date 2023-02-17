@@ -18,45 +18,9 @@ import FileCopyTwoToneIcon from '@mui/icons-material/FileCopyOutlined';
 import PictureAsPdfTwoToneIcon from '@mui/icons-material/PictureAsPdfOutlined';
 import ArchiveTwoToneIcon from '@mui/icons-material/ArchiveOutlined';
 
-const CardWrapper = styled(MainCard)(({ theme }) => ({
-    backgroundColor: theme.palette.secondary.dark,
-    color: '#fff',
-    overflow: 'hidden',
-    position: 'relative',
-    '&:after': {
-        content: '""',
-        position: 'absolute',
-        width: 210,
-        height: 210,
-        background: theme.palette.secondary[800],
-        borderRadius: '50%',
-        top: -85,
-        right: -95,
-        [theme.breakpoints.down('sm')]: {
-            top: -105,
-            right: -140
-        }
-    },
-    '&:before': {
-        content: '""',
-        position: 'absolute',
-        width: 210,
-        height: 210,
-        background: theme.palette.secondary[800],
-        borderRadius: '50%',
-        top: -125,
-        right: -15,
-        opacity: 0.5,
-        [theme.breakpoints.down('sm')]: {
-            top: -155,
-            right: -70
-        }
-    }
-}));
-
 // ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
 
-const EarningCard = ({ isLoading }) => {
+const ApplCard = ({ isLoading, application }) => {
     const theme = useTheme();
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -68,6 +32,41 @@ const EarningCard = ({ isLoading }) => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+    const CardWrapper = styled(MainCard)(({ theme }) => ({
+        backgroundColor: theme.palette.secondary.dark,
+        color: '#fff',
+        overflow: 'hidden',
+        position: 'relative',
+        '&:after': {
+            content: '""',
+            position: 'absolute',
+            width: 210,
+            height: 210,
+            background: theme.palette.secondary[800],
+            borderRadius: '50%',
+            top: -85,
+            right: -95,
+            [theme.breakpoints.down('sm')]: {
+                top: -105,
+                right: -140
+            }
+        },
+        '&:before': {
+            content: '""',
+            position: 'absolute',
+            width: 210,
+            height: 210,
+            background: theme.palette.secondary[800],
+            borderRadius: '50%',
+            top: -125,
+            right: -15,
+            opacity: 0.5,
+            [theme.breakpoints.down('sm')]: {
+                top: -155,
+                right: -70
+            }
+        }
+    }));
 
     return (
         <>
@@ -75,7 +74,7 @@ const EarningCard = ({ isLoading }) => {
                 <SkeletonEarningCard />
             ) : (
                 <CardWrapper border={false} content={false}>
-                    <Box sx={{ p: 2.25 }}>
+                    <Box sx={{ p: 2 }}>
                         <Grid container direction="column">
                             <Grid item>
                                 <Grid container justifyContent="space-between">
@@ -144,7 +143,7 @@ const EarningCard = ({ isLoading }) => {
                                 <Grid container alignItems="center">
                                     <Grid item>
                                         <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                            50
+                                            $500.00
                                         </Typography>
                                     </Grid>
                                     <Grid item>
@@ -169,7 +168,7 @@ const EarningCard = ({ isLoading }) => {
                                         color: theme.palette.secondary[200]
                                     }}
                                 >
-                                    Requests Pending
+                                    Total Earning
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -180,8 +179,8 @@ const EarningCard = ({ isLoading }) => {
     );
 };
 
-EarningCard.propTypes = {
+ApplCard.propTypes = {
     isLoading: PropTypes.bool
 };
 
-export default EarningCard;
+export default ApplCard;

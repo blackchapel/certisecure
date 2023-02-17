@@ -69,48 +69,53 @@ const Header = ({ handleLeftDrawerToggle }) => {
             <Box sx={{ flexGrow: 1 }} />
 
             {/* notification & profile */}
-            {localStorage.getItem('dvkitoken') && wallet ? (
-                <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={() => {
-                        window.ethereum.request({ method: 'eth_requestAccounts' }).then((res) => {
-                            setConnected(true);
-                            axios.patch(
-                                'https://dvki-production.up.railway.app/api/user/wallet-address',
-                                {
-                                    walletAddress: res[0]
-                                },
-                                {
-                                    headers: {
-                                        Authorization: 'Bearer ' + localStorage.getItem('dvkitoken')
+            {localStorage.getItem('dvkitoken') ? (
+                wallet ? (
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={() => {
+                            window.ethereum.request({ method: 'eth_requestAccounts' }).then((res) => {
+                                setConnected(true);
+                                axios.patch(
+                                    'https://dvki-production.up.railway.app/api/user/wallet-address',
+                                    {
+                                        walletAddress: res[0]
+                                    },
+                                    {
+                                        headers: {
+                                            Authorization: 'Bearer ' + localStorage.getItem('dvkitoken')
+                                        }
                                     }
-                                }
+                                );
+                            });
+                        }}
+                        sx={{
+                            boxShadow: 'none'
+                        }}
+                        startIcon={<IconWallet stroke={1.5} size="1.3rem" />}
+                    >
+                        {connected ? 'connected' : 'Connect Wallet'}
+                    </Button>
+                ) : (
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        sx={{
+                            boxShadow: 'none'
+                        }}
+                        onClick={() => {
+                            window.open(
+                                'https://metamask.io/',
+                                '_blank' // <- This is what makes it open in a new window.
                             );
-                        });
-                    }}
-                    sx={{
-                        boxShadow: 'none'
-                    }}
-                    startIcon={<IconWallet stroke={1.5} size="1.3rem" />}
-                >
-                    {connected ? 'connected' : 'Connect Wallet'}
-                </Button>
-            ) : (
-                <Button
-                    variant="contained"
-                    color="secondary"
-                    sx={{
-                        boxShadow: 'none'
-                    }}
-                    onClick={() => {
-                        navigate('https://metamask.io/', { replace: true });
-                    }}
-                    startIcon={<IconWallet stroke={1.5} size="1.3rem" />}
-                >
-                    Install Metamask
-                </Button>
-            )}
+                        }}
+                        startIcon={<IconWallet stroke={1.5} size="1.3rem" />}
+                    >
+                        Install Metamask
+                    </Button>
+                )
+            ) : null}
             {localStorage.getItem('dvkitoken') && <NotificationSection />}
 
             {localStorage.getItem('dvkitoken') ? (

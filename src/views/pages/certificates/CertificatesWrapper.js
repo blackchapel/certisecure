@@ -11,8 +11,8 @@ import MainCard from 'ui-component/cards/MainCard';
 const CertificatesWrapper = ({ children, ...other }) => (
     <MainCard
         sx={{
-            maxWidth: { xs: 400, lg: 475 },
-            margin: { xs: 2.5, md: 3 },
+            maxWidth: { xs: 400, lg: 600 },
+            margin: { xs: 1, md: 1 },
             '& > *': {
                 flexGrow: 1,
                 flexBasis: '50%'
