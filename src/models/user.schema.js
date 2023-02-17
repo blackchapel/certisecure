@@ -46,7 +46,8 @@ const userSchema = new mongoose.Schema(
                         type: String
                     },
                     isVerified: {
-                        type: Boolean
+                        type: String,
+                        enum: ['PENDING', 'REJECTED', 'APPROVED']
                     },
                     studentId: {
                         type: String
