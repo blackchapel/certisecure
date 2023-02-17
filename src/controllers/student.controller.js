@@ -33,7 +33,7 @@ const applyForVerification = async (req, res) => {
         }
 
         const applicationObjInstitution = {
-            isVerified: false,
+            isVerified: 'PENDING',
             studentId: req.user.id,
             studentName: req.user.name,
             studentRollNo: req.body.studentRollNo,

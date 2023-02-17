@@ -51,7 +51,36 @@ const getApplications = async (req, res) => {
     }
 };
 
+const storeWalletAddress = async (req, res) => {
+    try {
+        let user = await User.findByIdAndUpdate(
+            req.user.id,
+            {
+                walletAddress: req.body.walletAddress
+            },
+            { new: true }
+        );
+
+        if (!user) {
+            res.status(404).json({
+                message: 'User not found'
+            });
+        }
+
+        res.status(200).json({
+            message: 'Wallet address updated!',
+            data: user
+        });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({
+            message: error.message
+        });
+    }
+};
+
 module.exports = {
     getApplicationById,
-    getApplications
+    getApplications,
+    storeWalletAddress
 };
