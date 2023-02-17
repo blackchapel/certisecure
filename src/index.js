@@ -8,6 +8,9 @@ const dotenv = require('dotenv').config();
 
 // Importing routes
 const authRoutes = require('./routers/auth.router');
+const userRoutes = require('./routers/user.router');
+const studentRoutes = require('./routers/student.router');
+const institutionRoutes = require('./routers/institution.router');
 
 // Initializing an express app
 const app = express();
@@ -25,6 +28,9 @@ app.use(morgan('dev'));
 
 // APIs
 app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/student', studentRoutes);
+app.use('/api/institution', institutionRoutes);
 
 // Test API
 app.get('/api', (req, res) => {

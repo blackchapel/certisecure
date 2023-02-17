@@ -32,9 +32,43 @@ const userSchema = new mongoose.Schema(
         role: {
             type: String,
             enum: ['INSTITUTION', 'STUDENT']
+        },
+        walletAddress: {
+            type: String
+        },
+        applications: {
+            type: [
+                {
+                    institutionId: {
+                        type: String
+                    },
+                    institutionName: {
+                        type: String
+                    },
+                    isVerified: {
+                        type: Boolean
+                    },
+                    studentId: {
+                        type: String
+                    },
+                    studentName: {
+                        type: String
+                    },
+                    studentRollNo: {
+                        type: String
+                    },
+                    studentCgpa: {
+                        type: String
+                    },
+                    studentYearOfGraduation: {
+                        type: String
+                    },
+                    studentDob: {
+                        type: String
+                    }
+                }
+            ]
         }
-        // STUDENT: appliedTo, isVerified
-        // INSTITUTION
     },
     { timestamps: true }
 );
