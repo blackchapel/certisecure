@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -75,6 +76,17 @@ const Header = ({ handleLeftDrawerToggle }) => {
                     onClick={() => {
                         window.ethereum.request({ method: 'eth_requestAccounts' }).then((res) => {
                             setConnected(true);
+                            axios.patch(
+                                'https://dvki-production.up.railway.app/api/user/wallet-address',
+                                {
+                                    walletAddress: res[0]
+                                },
+                                {
+                                    headers: {
+                                        Authorization: 'Bearer ' + localStorage.getItem('dvkitoken')
+                                    }
+                                }
+                            );
                         });
                     }}
                     sx={{
