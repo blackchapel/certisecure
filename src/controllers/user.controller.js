@@ -2,7 +2,7 @@ const User = require('../models/user.schema');
 
 const getApplicationById = async (req, res) => {
     try {
-        let user = await User.find(req.user.id);
+        let user = await User.findById(req.user.id);
 
         if (!user) {
             res.status(404).json({
@@ -10,7 +10,7 @@ const getApplicationById = async (req, res) => {
             });
         }
 
-        const application = user.applications.forEach((item) => {
+        const application = user.applications.filter((item) => {
             if (item._id.toString() === req.query.applicationId.toString()) {
                 return item;
             }
@@ -18,7 +18,7 @@ const getApplicationById = async (req, res) => {
 
         res.status(200).json({
             message: 'Application found!',
-            data: application
+            data: { application }
         });
     } catch (error) {
         console.error(error.message);
@@ -30,7 +30,8 @@ const getApplicationById = async (req, res) => {
 
 const getApplications = async (req, res) => {
     try {
-        let user = await User.find(req.user.id);
+        let user = await User.findById(req.user.id);
+        let applications = user.applications;
 
         if (!user) {
             res.status(404).json({
@@ -39,8 +40,8 @@ const getApplications = async (req, res) => {
         }
 
         res.status(200).json({
-            message: 'Application found!',
-            data: user.applications
+            message: 'Applications found!',
+            data: applications
         });
     } catch (error) {
         console.error(error.message);
