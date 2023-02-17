@@ -1,4 +1,11 @@
 const User = require('../models/user.schema');
+const dotenv = require('dotenv').config();
+const Web3 = require('web3');
+const MyContract = require('../contracts/abis/certisecure.json');
+const address = process.env.CELO_ADDRESS_KEY;
+const privateText = process.env.CELO_PRIVATE_KEY;
+const celoUrl =
+    'https://explorer.celo.org/alfajores/address/0xF2114cdFFcFcc88aba06e42cE232C00eFb04EE54/';
 
 const approveApplication = async (req, res) => {
     try {
@@ -9,6 +16,39 @@ const approveApplication = async (req, res) => {
                 message: 'Institution not found'
             });
         }
+
+        const application = institution.applications.filter((item) => {
+            if (item._id.toString() === req.query.applicationId.toString()) {
+                return item;
+            }
+        });
+
+        const student = await User.findById(application.studentId);
+
+        const web3 = new Web3(celoUrl);
+        const networkId = newweb3.eth.getId();
+        const myContract = new web3.eth.net.Contract(
+            MyContract.abi,
+            MyContract.networks[networkId].address
+        );
+
+        const tx = myContract.methods.createUser(student.name, student.role);
+        const gas = await tx.estimateGas({ from: institution.walletAddress });
+        const gasPrice = await web3.eth.getGasPrice();
+        const data = tx.encodeABI();
+        const nonce = await web3.eth.getTransactionCount(address);
+
+        const signedTx = await web3.eth.accounts.signTransaction(
+            {
+                to: myContract.options.address,
+                data,
+                gas,
+                gasPrice,
+                nonce,
+                chainId: networkId
+            },
+            privateKey //sign w metamask wallet
+        );
 
         institution.applications = institution.applications.forEach((item) => {
             if (item._id.toString() === req.query.applicationId.toString()) {
