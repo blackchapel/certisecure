@@ -1,41 +1,40 @@
 // assets
-import { IconKey } from '@tabler/icons';
-
+import { IconCirclePlus, IconLoader, IconEye } from '@tabler/icons';
 // constant
 const icons = {
-    IconKey
+    IconCirclePlus,
+    IconLoader,
+    IconEye
 };
 
 // ==============================|| EXTRA PAGES MENU ITEMS ||============================== //
 
 const pages = {
     id: 'pages',
-    title: 'Pages',
-    caption: 'Pages Caption',
+    title: 'Graduation Certificate',
+    caption: 'Securely Access and Submit your Graduation Certificate',
     type: 'group',
     children: [
         {
-            id: 'authentication',
-            title: 'Authentication',
-            type: 'collapse',
-            icon: icons.IconKey,
-
-            children: [
-                {
-                    id: 'login3',
-                    title: 'Login',
-                    type: 'item',
-                    url: '/login',
-                    target: true
-                },
-                {
-                    id: 'register3',
-                    title: 'Register',
-                    type: 'item',
-                    url: '/register',
-                    target: true
-                }
-            ]
+            id: 'request',
+            title: 'Request for Certificate',
+            type: 'item',
+            icon: icons.IconCirclePlus,
+            url: '/certificate/request'
+        },
+        {
+            id: 'status',
+            title: 'Status of Certificates',
+            type: 'item',
+            icon: icons.IconLoader,
+            url: '/certificate/status'
+        },
+        {
+            id: 'view',
+            title: 'View All Certificates',
+            type: 'item',
+            icon: icons.IconEye,
+            url: '/certificate/status'
         }
     ]
 };

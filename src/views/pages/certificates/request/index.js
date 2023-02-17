@@ -5,13 +5,13 @@ import { Grid } from '@mui/material';
 
 // ==============================|| DEFAULT DASHBOARD ||============================== //
 
-const Dashboard = () => {
+const RequestCertificate = () => {
     const [isLoading, setLoading] = useState(true);
     useEffect(() => {
         setLoading(false);
     }, []);
 
-    return <div>hhghkg</div>;
+    return <div>Request</div>;
 };
 
-export default Dashboard;
+export default RequestCertificate;

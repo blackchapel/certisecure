@@ -6,7 +6,7 @@ import Loadable from 'ui-component/Loadable';
 
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
-
+const DashboardOrganization = Loadable(lazy(() => import('views/dashboard/Organization')));
 // utilities routing
 const UtilsTypography = Loadable(lazy(() => import('views/utilities/Typography')));
 const UtilsColor = Loadable(lazy(() => import('views/utilities/Color')));
@@ -14,6 +14,7 @@ const UtilsShadow = Loadable(lazy(() => import('views/utilities/Shadow')));
 const UtilsMaterialIcons = Loadable(lazy(() => import('views/utilities/MaterialIcons')));
 const UtilsTablerIcons = Loadable(lazy(() => import('views/utilities/TablerIcons')));
 
+const RequestCertificate = Loadable(lazy(() => import('views/pages/certificates/request')));
 // sample page routing
 const HomePage = Loadable(lazy(() => import('views/sample-page')));
 
@@ -29,13 +30,15 @@ const MainRoutes = {
         },
         {
             path: 'dashboard',
+            element: <DashboardOrganization />
+        },
+        {
+            path: 'certificate/status',
             element: <DashboardDefault />
-            // children: [
-            //     {
-            //         path: '/',
-
-            //     }
-            // ]
+        },
+        {
+            path: 'certificate/request',
+            element: <RequestCertificate />
         },
         {
             path: 'utils',

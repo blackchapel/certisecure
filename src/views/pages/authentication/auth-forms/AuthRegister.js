@@ -154,7 +154,12 @@ const FirebaseRegister = ({ ...others }) => {
                             if (response.data) {
                                 localStorage.setItem('dvkitoken', response.data.token);
                                 localStorage.setItem('user', JSON.stringify(response.data.user));
-                                navigate('/dashboard', { replace: true });
+                                if (response.data.user.role === 'STUDENT') {
+                                    navigate('/certificate/status', { replace: true });
+                                } else {
+                                    navigate('/dashboard', { replace: true });
+                                }
+
                                 setStatus({ success: true });
                                 setSubmitting(false);
                                 return;

@@ -22,7 +22,7 @@ const Logo = () => {
          *
          *
          */
-        <img src={logo} alt="Certi Secure" width="100" />
+        <img src={logo} alt="Certi Secure" width="170" />
     );
 };
 

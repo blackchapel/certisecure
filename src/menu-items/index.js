@@ -5,8 +5,15 @@ import other from './other';
 
 // ==============================|| MENU ITEMS ||============================== //
 
-const menuItems = {
-    items: [dashboard, pages]
+const menuItemsUser = {
+    items: [pages]
 };
+
+const menuItemsOrg = {
+    items: [dashboard]
+};
+
+const user = JSON.parse(localStorage.getItem('user'));
+const menuItems = user.role == 'STUDENT' ? menuItemsUser : menuItemsOrg;
 
 export default menuItems;
