@@ -14,6 +14,6 @@ const menuItemsOrg = {
 };
 
 const user = JSON.parse(localStorage.getItem('user'));
-const menuItems = user.role == 'STUDENT' ? menuItemsUser : menuItemsOrg;
+const menuItems = user && user.role == 'STUDENT' ? menuItemsUser : menuItemsOrg;
 
 export default menuItems;
