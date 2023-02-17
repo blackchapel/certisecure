@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 
 // material-ui
@@ -10,6 +11,7 @@ import SearchSection from './SearchSection';
 import ProfileSection from './ProfileSection';
 import NotificationSection from './NotificationSection';
 
+import { useNavigate } from 'react-router';
 // assets
 import { IconMenu2, IconWallet } from '@tabler/icons';
 
@@ -17,7 +19,10 @@ import { IconMenu2, IconWallet } from '@tabler/icons';
 
 const Header = ({ handleLeftDrawerToggle }) => {
     const theme = useTheme();
+    const [wallet, setWallet] = React.useState(window.ethereum);
+    const [connected, setConnected] = React.useState(false);
 
+    const navigate = useNavigate();
     return (
         <>
             {/* logo & toggler button */}
@@ -63,16 +68,35 @@ const Header = ({ handleLeftDrawerToggle }) => {
             <Box sx={{ flexGrow: 1 }} />
 
             {/* notification & profile */}
-            {localStorage.getItem('dvkitoken') && (
+            {localStorage.getItem('dvkitoken') && wallet ? (
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={() => {
+                        window.ethereum.request({ method: 'eth_requestAccounts' }).then((res) => {
+                            setConnected(true);
+                        });
+                    }}
+                    sx={{
+                        boxShadow: 'none'
+                    }}
+                    startIcon={<IconWallet stroke={1.5} size="1.3rem" />}
+                >
+                    {connected ? 'connected' : 'Connect Wallet'}
+                </Button>
+            ) : (
                 <Button
                     variant="contained"
                     color="secondary"
                     sx={{
                         boxShadow: 'none'
                     }}
+                    onClick={() => {
+                        navigate('https://metamask.io/', { replace: true });
+                    }}
                     startIcon={<IconWallet stroke={1.5} size="1.3rem" />}
                 >
-                    Connect to Wallet
+                    Install Metamask
                 </Button>
             )}
             {localStorage.getItem('dvkitoken') && <NotificationSection />}
