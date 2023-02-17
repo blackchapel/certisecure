@@ -131,25 +131,9 @@ const auth = {
         }
     },
 
-    roleApprovalBody: (req, res, next) => {
+    roleInstitution: (req, res, next) => {
         try {
-            if (req.user.role === 'APPROVAL BODY') {
-                next();
-            } else {
-                res.status(403).json({
-                    message: 'Access Denied'
-                });
-            }
-        } catch (error) {
-            res.status(500).json({
-                message: error.message
-            });
-        }
-    },
-
-    roleClub: (req, res, next) => {
-        try {
-            if (req.user.role === 'CLUB') {
+            if (req.user.role === 'INSTITUTION') {
                 next();
             } else {
                 res.status(403).json({
@@ -162,6 +146,22 @@ const auth = {
             });
         }
     }
+
+    // roleClub: (req, res, next) => {
+    //     try {
+    //         if (req.user.role === 'CLUB') {
+    //             next();
+    //         } else {
+    //             res.status(403).json({
+    //                 message: 'Access Denied'
+    //             });
+    //         }
+    //     } catch (error) {
+    //         res.status(500).json({
+    //             message: error.message
+    //         });
+    //     }
+    // }
 };
 
 module.exports = auth;

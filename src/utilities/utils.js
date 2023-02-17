@@ -3,6 +3,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const cloudinary = require('cloudinary').v2;
+const crypto = require('crypto-js');
+const fs = require('fs');
 
 const generateOtp = (otpLength) => {
     let digits = '0123456789';
@@ -80,7 +82,8 @@ const generateBearerToken = async (user) => {
             id: user._id,
             name: user.name,
             email: user.email,
-            isActivated: user.isActivated
+            isActivated: user.isActivated,
+            role: user.role
         },
         process.env.JWT_SECRET
     );
@@ -94,7 +97,8 @@ const generateBearerToken = async (user) => {
             id: user._id,
             name: user.name,
             email: user.email,
-            isActivated: user.isActivated
+            isActivated: user.isActivated,
+            role: user.role
         },
         tokenType: 'BEARER',
         expireAt: expireDate,
@@ -113,6 +117,44 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
+const ipfs = async (data) => {
+    const auth =
+        'Basic ' +
+        Buffer.from(
+            process.env.INFURA_API_KEY + ':' + process.env.INFURA_API_SECRET
+        ).toString('base64');
+
+    const client = ipfsClient.create({
+        host: 'ipfs.infura.io',
+        port: 5001,
+        protocol: 'https',
+        headers: {
+            authorization: auth
+        }
+    });
+
+    const buffer = fs.readFileSync(data.path);
+
+    let result = await client.add(buffer);
+    console.log(result.cid);
+    let url = process.env.IPFS_URI + '/' + result.path;
+    return url;
+};
+
+const encrypt = (data) => {
+    const encryptData = crypto.AES.encrypt(
+        JSON.stringify(data),
+        process.env.CRYPTO_KEY
+    ).toString();
+    return encryptData;
+};
+
+const decrypt = (data) => {
+    const bytes = crypto.AES.decrypt(data, process.env.CRYPTO_KEY);
+    const decryptData = JSON.parse(bytes.toString(crypto.enc.Utf8));
+    return decryptData;
+};
+
 module.exports = {
     generateOtp,
     sendEmail,
@@ -120,5 +162,8 @@ module.exports = {
     hashPassword,
     validatePassword,
     generateBearerToken,
-    cloudinary
+    cloudinary,
+    ipfs,
+    encrypt,
+    decrypt
 };
