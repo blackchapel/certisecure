@@ -4,8 +4,7 @@ const Web3 = require('web3');
 const MyContract = require('../contracts/abis/certisecure.json');
 const address = process.env.CELO_ADDRESS_KEY;
 const privateText = process.env.CELO_PRIVATE_KEY;
-const celoUrl =
-    'https://explorer.celo.org/alfajores/address/0xF2114cdFFcFcc88aba06e42cE232C00eFb04EE54/';
+const celoUrl = 'https://alfajores-forno.celo-testnet.org/';
 
 const approveApplication = async (req, res) => {
     try {
