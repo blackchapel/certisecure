@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 // material-ui
@@ -35,6 +35,7 @@ import { strengthColor, strengthIndicator } from 'utils/password-strength';
 // assets
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { signupPost } from 'data/auth';
 
 // ===========================|| FIREBASE - REGISTER ||=========================== //
 
@@ -49,6 +50,7 @@ const FirebaseRegister = ({ ...others }) => {
     const [strength, setStrength] = useState(0);
     const [level, setLevel] = useState();
 
+    const navigate = useNavigate();
     const googleHandler = async () => {
         console.error('Register');
     };
@@ -128,6 +130,8 @@ const FirebaseRegister = ({ ...others }) => {
                 initialValues={{
                     email: '',
                     password: '',
+                    fname: '',
+                    lname: '',
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
@@ -136,9 +140,29 @@ const FirebaseRegister = ({ ...others }) => {
                 })}
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                     try {
+                        console.log(values);
                         if (scriptedRef.current) {
-                            setStatus({ success: true });
-                            setSubmitting(false);
+                            console.log({
+                                ...values,
+                                name: `${values.fname} ${values.lname}`
+                            });
+                            const response = await signupPost({
+                                ...values,
+                                name: `${values.fname} ${values.lname}`
+                            });
+                            console.log(response);
+                            if (response.data) {
+                                localStorage.setItem('dvkitoken', response.data.token);
+                                localStorage.setItem('user', JSON.stringify(response.data.user));
+                                navigate('/dashboard', { replace: true });
+                                setStatus({ success: true });
+                                setSubmitting(false);
+                                return;
+                            } else {
+                                setStatus({ success: false });
+                                setErrors({ submit: response.message });
+                                setSubmitting(false);
+                            }
                         }
                     } catch (err) {
                         console.error(err);
@@ -157,10 +181,12 @@ const FirebaseRegister = ({ ...others }) => {
                                 <TextField
                                     fullWidth
                                     label="First Name"
+                                    value={values.fname}
+                                    onChange={handleChange}
                                     margin="normal"
                                     name="fname"
                                     type="text"
-                                    defaultValue=""
+                                    // defaultValue=""
                                     sx={{ ...theme.typography.customInput }}
                                 />
                             </Grid>
@@ -168,10 +194,12 @@ const FirebaseRegister = ({ ...others }) => {
                                 <TextField
                                     fullWidth
                                     label="Last Name"
+                                    value={values.lname}
+                                    onChange={handleChange}
                                     margin="normal"
                                     name="lname"
                                     type="text"
-                                    defaultValue=""
+                                    // defaultValue=""
                                     sx={{ ...theme.typography.customInput }}
                                 />
                             </Grid>

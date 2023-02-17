@@ -34,6 +34,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import Google from 'assets/images/icons/social-google.svg';
+import { loginPost } from 'data/auth';
 
 // ============================|| FIREBASE - LOGIN ||============================ //
 
@@ -132,6 +133,18 @@ const FirebaseLogin = ({ ...others }) => {
                     try {
                         if (scriptedRef.current) {
                             setStatus({ success: true });
+                            console.log(values);
+                            const response = await loginPost(values);
+                            console.log(response);
+                            if (response.data) {
+                                localStorage.setItem('dvkitoken', response.data.token);
+                                localStorage.setItem('user', JSON.stringify(response.data.user));
+                                window.location.href = '/dashboard';
+                            } else {
+                                setStatus({ success: false });
+                                setErrors({ submit: response.message });
+                                setSubmitting(false);
+                            }
                             setSubmitting(false);
                         }
                     } catch (err) {
