@@ -13,6 +13,10 @@ const authSchema = new mongoose.Schema(
                 email: {
                     type: String
                 },
+                role: {
+                    type: String,
+                    enum: ['INSTITUTION', 'STUDENT']
+                },
                 isActivated: {
                     type: Boolean
                 }

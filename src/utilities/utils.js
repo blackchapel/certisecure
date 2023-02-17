@@ -82,7 +82,8 @@ const generateBearerToken = async (user) => {
             id: user._id,
             name: user.name,
             email: user.email,
-            isActivated: user.isActivated
+            isActivated: user.isActivated,
+            role: user.role
         },
         process.env.JWT_SECRET
     );
@@ -96,7 +97,8 @@ const generateBearerToken = async (user) => {
             id: user._id,
             name: user.name,
             email: user.email,
-            isActivated: user.isActivated
+            isActivated: user.isActivated,
+            role: user.role
         },
         tokenType: 'BEARER',
         expireAt: expireDate,

@@ -84,7 +84,8 @@ const signUp = async (req, res) => {
             name: req.body.name,
             email: req.body.email,
             password: hashedPassword,
-            isActivated: false
+            isActivated: false,
+            role: 'INSTITUTION'
         });
 
         await newUser.save();
