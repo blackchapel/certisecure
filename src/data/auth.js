@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const url = 'https://dvki-production.up.railway.app/api';
-// const url = "http://localhost:5000/api";
 
 export const signupPost = async (token, formData) => {
     try {

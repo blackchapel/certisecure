@@ -36,6 +36,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Google from 'assets/images/icons/social-google.svg';
 import { loginPost } from 'data/auth';
 
+import { useNavigate } from 'react-router';
 // ============================|| FIREBASE - LOGIN ||============================ //
 
 const FirebaseLogin = ({ ...others }) => {
@@ -44,7 +45,7 @@ const FirebaseLogin = ({ ...others }) => {
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
     const customization = useSelector((state) => state.customization);
     const [checked, setChecked] = useState(true);
-
+    const navigate = useNavigate();
     const googleHandler = async () => {
         console.error('Login');
     };
@@ -139,7 +140,11 @@ const FirebaseLogin = ({ ...others }) => {
                             if (response.data) {
                                 localStorage.setItem('dvkitoken', response.data.token);
                                 localStorage.setItem('user', JSON.stringify(response.data.user));
-                                window.location.href = '/dashboard';
+                                if (response.data.user.role === 'STUDENT') {
+                                    navigate('/certificate/status', { replace: true });
+                                } else {
+                                    navigate('/dashboard', { replace: true });
+                                }
                             } else {
                                 setStatus({ success: false });
                                 setErrors({ submit: response.message });
