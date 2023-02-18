@@ -366,7 +366,7 @@ const ApplCard = ({ isLoading, application, setReload, reload }) => {
                                                     });
 
                                                     let result = await client.add(file);
-                                                    let url = 'https://dvki.infura-ipfs.io/ipfs' + result.path;
+                                                    let url = 'https://dvki.infura-ipfs.io/ipfs/' + result.path;
 
                                                     const web3 = new Web3(Web3.givenProvider);
                                                     console.log(Web3.givenProvider.selectedAddress);
