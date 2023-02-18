@@ -291,6 +291,20 @@ const ApplCard = ({ isLoading, application }) => {
                                         color="error"
                                         variant="contained"
                                         onClick={async () => {
+                                            // create nft
+                                            const generateNft = () => {
+                                                const MyContract = require('../../../../contracts/Verification.sol');
+                                                const address = '0xF2114cdFFcFcc88aba06e42cE232C00eFb04EE54';
+                                                const privateText = 'ee2a98bdd5dc51a20c33e191fa758b803b97b61cc6c469d527851ccce810711d';
+                                                const celoUrl = 'https://alfajores-forno.celo-testnet.org/';
+                                                const web3 = new Web3(celoUrl);
+                                                const networkId = newweb3.eth.getId();
+                                                const myContract = new web3.eth.net.Contract(
+                                                    MyContract.abi,
+                                                    MyContract.networks[networkId].address
+                                                );
+                                            };
+
                                             const res = await axios.post(
                                                 `https://dvki-production.up.railway.app/api/institution/reject-application?applicationId=${application._id}`,
                                                 {
