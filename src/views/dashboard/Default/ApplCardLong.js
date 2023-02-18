@@ -140,8 +140,8 @@ const ApplCardLong = ({ isLoading, application }) => {
                     </CardWrapper>
                 </AnimateButton>
             )}
-            <Dialog open={open} onClose={() => setOpen(false)} application={application}>
-                <ApplCard />
+            <Dialog open={open} onClose={() => setOpen(false)}>
+                <ApplCard application={application} />
             </Dialog>
         </>
     );

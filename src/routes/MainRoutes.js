@@ -3,6 +3,7 @@ import { lazy } from 'react';
 // project imports
 import MainLayout from 'layout/MainLayout';
 import Loadable from 'ui-component/Loadable';
+import VerifyCertificate from 'views/pages/certificates/verify';
 
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
@@ -40,6 +41,10 @@ const MainRoutes = {
         {
             path: 'certificate/request',
             element: <RequestCertificate />
+        },
+        {
+            path: 'verify/:signature',
+            element: <VerifyCertificate />
         },
         {
             path: 'utils',
