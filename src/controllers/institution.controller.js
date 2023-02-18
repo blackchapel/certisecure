@@ -17,7 +17,7 @@ const approveApplication = async (req, res) => {
                 item.certificateUrl = req.body.certificateUrl;
                 item.hashedMessage = req.body.hashedMessage;
                 item.signature = req.body.signature;
-                item.isVerified = true;
+                item.isVerified = 'APPROVED';
                 studentId = item.studentId;
             }
             return item;
@@ -29,7 +29,7 @@ const approveApplication = async (req, res) => {
             if (item._id.toString() === req.query.applicationId.toString()) {
                 item.hashedMessage = req.body.hashedMessages;
                 item.signature = req.body.signature;
-                item.isVerified = true;
+                item.isVerified = 'APPROVED';
             }
             return item;
         });
