@@ -145,6 +145,7 @@ const searchSignature = async (req, res) => {
                     if (itemInception.signature === req.query.signature) {
                         result['walletAddress'] = item.walletAddress;
                         result['hashedMessage'] = itemInception.hashedMessage;
+                        result['certificateUrl'] = itemInception.certificateUrl;
                     }
                 });
             });
