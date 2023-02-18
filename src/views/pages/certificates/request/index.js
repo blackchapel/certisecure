@@ -91,7 +91,7 @@ const RequestCertificate = () => {
         try {
             const response = await sendRequest(localStorage.getItem('dvkitoken'), data);
             if (response && response.data) {
-                navigate('/certificates/status');
+                navigate('/certificate/status');
             } else {
                 console.log(response);
             }

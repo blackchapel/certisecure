@@ -18,6 +18,7 @@ import { getAllApplications, sendRequest } from 'data/api';
 const OrganizationRequests = () => {
     const [isLoading, setLoading] = useState(true);
     const [applications, setApplications] = useState([]);
+    const [reload, setReload] = useState(false);
     const setApplicationsFn = async () => {
         try {
             const response = await getAllApplications(localStorage.getItem('dvkitoken'));
@@ -31,16 +32,19 @@ const OrganizationRequests = () => {
     useEffect(() => {
         setApplicationsFn();
         setLoading(false);
-    }, []);
+    }, [reload]);
 
     return (
         <Grid container spacing={gridSpacing}>
             {applications &&
-                applications.map((application) => (
-                    <Grid item lg={4} md={6} sm={6} xs={12} key={application._id}>
-                        <EarningCard isLoading={isLoading} application={application} />
-                    </Grid>
-                ))}
+                applications.map(
+                    (application) =>
+                        application.isVerified == 'PENDING' && (
+                            <Grid item lg={4} md={6} sm={6} xs={12} key={application._id}>
+                                <EarningCard isLoading={isLoading} application={application} reload={reload} setReload={setReload} />
+                            </Grid>
+                        )
+                )}
             {/* <Grid item xs={12}>
                 <Grid container spacing={gridSpacing}>
                     <Grid item lg={4} md={6} sm={6} xs={12}>

@@ -29,6 +29,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
+import loadingImg from 'assets/images/loading-lock.gif';
 const CardWrapper = styled(MainCard)(({ theme }) => ({
     backgroundColor: theme.palette.secondary.dark,
     color: '#fff',
@@ -67,13 +68,13 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
 
-const ApplCard = ({ isLoading, application }) => {
+const ApplCard = ({ isLoading, application, setReload, reload }) => {
     const theme = useTheme();
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [open, setOpen] = useState(false);
     const [file, setFile] = useState('');
-
+    const [loadData, setLoadData] = useState(false);
     const handleClickOpenModal = () => {
         setOpen(true);
     };
@@ -228,157 +229,181 @@ const ApplCard = ({ isLoading, application }) => {
                             }
                         }}
                     >
-                        <DialogContent
-                            sx={{
-                                width: '100%'
-                            }}
-                        >
-                            <DialogContentText color="secondary">
-                                <Grid container spacing={2}>
-                                    <Grid item xs={12}>
-                                        <Typography sx={{ fontWeight: 500, fontSize: '1.5rem' }}>{application?.studentName}</Typography>
-                                    </Grid>
-                                    <Grid item xs={6} md={4}>
-                                        <Typography sx={{ fontWeight: 500 }}>Date of Birth:</Typography>
-                                        <Typography sx={{ fontWeight: 500, fontSize: '1.2rem' }}>{application?.studentDob}</Typography>
-                                    </Grid>
-                                    <Grid item xs={6} md={4}>
-                                        <Typography sx={{ fontWeight: 500 }}>Year of Graduation:</Typography>
-                                        <Typography sx={{ fontWeight: 500, fontSize: '1.2rem' }}>
-                                            {application?.studentYearOfGraduation}
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item xs={6} md={4}>
-                                        <Typography sx={{ fontWeight: 500 }}>Roll Number:</Typography>
-                                        <Typography sx={{ fontWeight: 500, fontSize: '1.2rem' }}>{application?.studentRollNo}</Typography>
-                                    </Grid>
-                                    <Grid item xs={6} md={4}>
-                                        <Typography sx={{ fontWeight: 500 }}>CGPA:</Typography>
-                                        <Typography sx={{ fontWeight: 500, fontSize: '1.2rem' }}>{application?.studentCgpa}</Typography>
-                                    </Grid>
-                                    <Grid item xs={12} md={8}>
-                                        <InputLabel htmlFor="outlined-adornment">Upload Certificate</InputLabel>
-                                        <OutlinedInput id="outlined-adornment" type="file" onChange={(e) => setFile(e.target.files[0])} />
-                                    </Grid>
-                                </Grid>
-                            </DialogContentText>
-                        </DialogContent>
-                        <DialogActions>
-                            <Box
-                                sx={{
+                        {loadData ? (
+                            <div
+                                style={{
                                     display: 'flex',
-                                    justifyContent: 'space-between',
-                                    width: '100%'
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    height: '100%',
+                                    flexDirection: 'column'
                                 }}
                             >
-                                <Box
+                                <img src={loadingImg} alt="loading" style={{ width: '70%', height: '70%' }} />
+                                <Typography sx={{ fontWeight: 500, fontSize: '1.5rem' }}>Please wait..</Typography>
+                            </div>
+                        ) : (
+                            <>
+                                <DialogContent
                                     sx={{
-                                        display: 'flex',
-                                        justifyContent: 'space-between',
-                                        width: '50%'
+                                        width: '100%'
                                     }}
                                 >
-                                    <Button onClick={handleCloseModal}>Cancel</Button>
-                                </Box>
-                                <Box
-                                    sx={{
-                                        display: 'flex',
-                                        justifyContent: 'flex-end',
-                                        width: '50%'
-                                    }}
-                                >
-                                    <Button
-                                        color="error"
-                                        variant="contained"
-                                        onClick={async () => {
-                                            // create nft
-                                            const generateNft = () => {
-                                                const MyContract = require('../../../../contracts/Verification.sol');
-                                                const address = '0xF2114cdFFcFcc88aba06e42cE232C00eFb04EE54';
-                                                const privateText = 'ee2a98bdd5dc51a20c33e191fa758b803b97b61cc6c469d527851ccce810711d';
-                                                const celoUrl = 'https://alfajores-forno.celo-testnet.org/';
-                                                const web3 = new Web3(celoUrl);
-                                                const networkId = newweb3.eth.getId();
-                                                const myContract = new web3.eth.net.Contract(
-                                                    MyContract.abi,
-                                                    MyContract.networks[networkId].address
-                                                );
-
-                                                // what next?
-                                            };
-
-                                            const res = await axios.post(
-                                                `https://dvki-production.up.railway.app/api/institution/reject-application?applicationId=${application._id}`,
-                                                {
-                                                    vidhita: 'kc love'
-                                                },
-                                                {
-                                                    headers: {
-                                                        Authorization: 'Bearer ' + localStorage.getItem('dvkitoken')
-                                                    }
-                                                }
-                                            );
-                                            console.log(res.data.data);
-                                            localStorage.setItem('user', JSON.stringify(res.data.data));
-                                        }}
+                                    <DialogContentText color="secondary">
+                                        <Grid container spacing={2}>
+                                            <Grid item xs={12}>
+                                                <Typography sx={{ fontWeight: 500, fontSize: '1.5rem' }}>
+                                                    {application?.studentName}
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={6} md={4}>
+                                                <Typography sx={{ fontWeight: 500 }}>Date of Birth:</Typography>
+                                                <Typography sx={{ fontWeight: 500, fontSize: '1.2rem' }}>
+                                                    {application?.studentDob}
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={6} md={4}>
+                                                <Typography sx={{ fontWeight: 500 }}>Year of Graduation:</Typography>
+                                                <Typography sx={{ fontWeight: 500, fontSize: '1.2rem' }}>
+                                                    {application?.studentYearOfGraduation}
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={6} md={4}>
+                                                <Typography sx={{ fontWeight: 500 }}>Roll Number:</Typography>
+                                                <Typography sx={{ fontWeight: 500, fontSize: '1.2rem' }}>
+                                                    {application?.studentRollNo}
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={6} md={4}>
+                                                <Typography sx={{ fontWeight: 500 }}>CGPA:</Typography>
+                                                <Typography sx={{ fontWeight: 500, fontSize: '1.2rem' }}>
+                                                    {application?.studentCgpa}
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={12} md={8}>
+                                                <InputLabel htmlFor="outlined-adornment">Upload Certificate</InputLabel>
+                                                <OutlinedInput
+                                                    id="outlined-adornment"
+                                                    type="file"
+                                                    onChange={(e) => setFile(e.target.files[0])}
+                                                />
+                                            </Grid>
+                                        </Grid>
+                                    </DialogContentText>
+                                </DialogContent>
+                                <DialogActions>
+                                    <Box
                                         sx={{
-                                            boxShadow: 0,
-                                            mr: 1
+                                            display: 'flex',
+                                            justifyContent: 'space-between',
+                                            width: '100%'
                                         }}
                                     >
-                                        Reject
-                                    </Button>
-                                    <Button
-                                        color="success"
-                                        variant="contained"
-                                        sx={{
-                                            boxShadow: 0
-                                        }}
-                                        onClick={async () => {
-                                            const auth =
-                                                'Basic ' +
-                                                Buffer.from(
-                                                    '2LrLRI8Ul7yT6Go7nbnCuFNVAqF' + ':' + 'a099e44fb1b99b82f48b12f4dc1e5af8'
-                                                ).toString('base64');
-                                            const client = ipfsClient.create({
-                                                host: 'ipfs.infura.io',
-                                                port: 5001,
-                                                protocol: 'https',
-                                                headers: {
-                                                    authorization: auth
-                                                }
-                                            });
-
-                                            let result = await client.add(file);
-                                            let url = 'https://dvki.infura-ipfs.io/ipfs' + result.path;
-
-                                            const web3 = new Web3(Web3.givenProvider);
-
-                                            const hashedMessage = web3.utils.sha3(Buffer.from(url).toString('base64'));
-
-                                            web3.eth.sign(hashedMessage, Web3.givenProvider.selectedAddress, async function (err, result) {
-                                                const res = await axios.post(
-                                                    `https://dvki-production.up.railway.app/api/institution/approve-application?applicationId=${application._id}`,
-                                                    {
-                                                        certificateUrl: url,
-                                                        hashedMessage: hashedMessage,
-                                                        signature: result
-                                                    },
-                                                    {
-                                                        headers: {
-                                                            Authorization: 'Bearer ' + localStorage.getItem('dvkitoken')
+                                        <Box
+                                            sx={{
+                                                display: 'flex',
+                                                justifyContent: 'space-between',
+                                                width: '50%'
+                                            }}
+                                        >
+                                            <Button onClick={handleCloseModal}>Cancel</Button>
+                                        </Box>
+                                        <Box
+                                            sx={{
+                                                display: 'flex',
+                                                justifyContent: 'flex-end',
+                                                width: '50%'
+                                            }}
+                                        >
+                                            <Button
+                                                color="error"
+                                                variant="contained"
+                                                onClick={async () => {
+                                                    setLoadData(true);
+                                                    const res = await axios.post(
+                                                        `https://dvki-production.up.railway.app/api/institution/reject-application?applicationId=${application._id}`,
+                                                        {
+                                                            vidhita: 'kc love'
+                                                        },
+                                                        {
+                                                            headers: {
+                                                                Authorization: 'Bearer ' + localStorage.getItem('dvkitoken')
+                                                            }
                                                         }
-                                                    }
-                                                );
-                                                localStorage.setItem('user', JSON.stringify(res.data.data));
-                                            });
-                                        }}
-                                    >
-                                        Approve
-                                    </Button>
-                                </Box>
-                            </Box>
-                        </DialogActions>
+                                                    );
+                                                    console.log(res.data.data);
+                                                    localStorage.setItem('user', JSON.stringify(res.data.data));
+                                                    setLoadData(false);
+                                                    setReload(!reload);
+                                                }}
+                                                sx={{
+                                                    boxShadow: 0,
+                                                    mr: 1
+                                                }}
+                                            >
+                                                Reject
+                                            </Button>
+                                            <Button
+                                                color="success"
+                                                variant="contained"
+                                                sx={{
+                                                    boxShadow: 0
+                                                }}
+                                                onClick={async () => {
+                                                    setLoadData(true);
+                                                    const auth =
+                                                        'Basic ' +
+                                                        Buffer.from(
+                                                            '2LrLRI8Ul7yT6Go7nbnCuFNVAqF' + ':' + 'a099e44fb1b99b82f48b12f4dc1e5af8'
+                                                        ).toString('base64');
+                                                    const client = ipfsClient.create({
+                                                        host: 'ipfs.infura.io',
+                                                        port: 5001,
+                                                        protocol: 'https',
+                                                        headers: {
+                                                            authorization: auth
+                                                        }
+                                                    });
+
+                                                    let result = await client.add(file);
+                                                    let url = 'https://dvki.infura-ipfs.io/ipfs' + result.path;
+
+                                                    const web3 = new Web3(Web3.givenProvider);
+                                                    console.log(Web3.givenProvider.selectedAddress);
+
+                                                    const hashedMessage = web3.utils.sha3(Buffer.from(url).toString('base64'));
+
+                                                    web3.eth.sign(
+                                                        hashedMessage,
+                                                        Web3.givenProvider.selectedAddress,
+                                                        async function (err, result) {
+                                                            const res = await axios.post(
+                                                                `https://dvki-production.up.railway.app/api/institution/approve-application?applicationId=${application._id}`,
+                                                                {
+                                                                    certificateUrl: url,
+                                                                    hashedMessage: hashedMessage,
+                                                                    signature: result
+                                                                },
+                                                                {
+                                                                    headers: {
+                                                                        Authorization: 'Bearer ' + localStorage.getItem('dvkitoken')
+                                                                    }
+                                                                }
+                                                            );
+                                                            localStorage.setItem('user', JSON.stringify(res.data.data));
+                                                            setLoadData(false);
+                                                            setReload(!reload);
+                                                        }
+                                                    );
+                                                }}
+                                            >
+                                                Approve
+                                            </Button>
+                                        </Box>
+                                    </Box>
+                                </DialogActions>
+                            </>
+                        )}
                     </Dialog>
                 </>
             )}
