@@ -26,7 +26,7 @@ const approveApplication = async (req, res) => {
         const student = await User.findById(studentId);
 
         student.applications = student.applications.filter((item) => {
-            if (item._id.toString() === req.query.applicationId.toString()) {
+            if (item.institutionId.toString() === institution._id.toString()) {
                 item.hashedMessage = req.body.hashedMessages;
                 item.signature = req.body.signature;
                 item.isVerified = 'APPROVED';
