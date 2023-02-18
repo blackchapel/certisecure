@@ -102,9 +102,42 @@ const verifyCertificate = async (req, res) => {
     }
 };
 
+const searchSignature = async (req, res) => {
+    try {
+        const institutions = await User.find();
+
+        if (institutions.length === 0) {
+            res.status(404).json({
+                message: 'no institutions found'
+            });
+        } else {
+            let result;
+            institutions.forEach((item) => {
+                item.applications.forEach((itemInception) => {
+                    if (itemInception.signature === req.query.signature) {
+                        result['walletAddress'] = item.walletAddress;
+                        result['hashedMessage'] = itemInception.hashedMessage;
+                    }
+                });
+            });
+
+            res.status(200).json({
+                message: 'certificate details',
+                data: result
+            });
+        }
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({
+            message: error.message
+        });
+    }
+};
+
 module.exports = {
     approveApplication,
-    verifyCertificate
+    verifyCertificate,
+    searchSignature
 };
 
 // approve, verify, view all
