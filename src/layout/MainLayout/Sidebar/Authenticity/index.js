@@ -1,5 +1,8 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import Web3 from 'web3';
+import axios from 'axios';
+import Verification from '../../../../abis/Verification';
 // material-ui
 import { styled, useTheme } from '@mui/material/styles';
 import {
@@ -89,16 +92,22 @@ LinearProgressWithLabel.propTypes = {
 const Authenticity = () => {
     const theme = useTheme();
     const [serial, setSerial] = useState('');
-    const verifyCertificate = () => {
-        const MyContract = require('../../../../contracts/Verification.sol');
-        const address = process.env.CELO_ADDRESS_KEY;
-        const privateText = process.env.CELO_PRIVATE_KEY;
+
+    const verifyCertificate = async () => {
         const celoUrl = 'https://alfajores-forno.celo-testnet.org/';
         const web3 = new Web3(celoUrl);
-        const networkId = newweb3.eth.getId();
-        const myContract = new web3.eth.net.Contract(MyContract.abi, MyContract.networks[networkId].address);
 
-        MyContract.recover();
+        const SmartContractAbi = Verification.abi;
+        const SmartContractAddress = '0xF2114cdFFcFcc88aba06e42cE232C00eFb04EE54'; // Instantiate an object that "encapsulates" the smart contract
+        const SmartContractObject = new web3.eth.Contract(SmartContractAbi, SmartContractAddress);
+
+        const res = await axios.get('https://dvki-production.up.railway.app/api/institution/search-signature?signature=', //add after = {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('dvkitoken')
+            }
+        });
+
+        SmartContractObject.methods.recover(res.data.data.hashedMessage, signature); // replace signature
     };
 
     return (
@@ -141,7 +150,7 @@ const Authenticity = () => {
                     onChange={(e) => setSerial(e.target.value)}
                 />
                 <AnimateButton>
-                    <Button variant="contained" sx={{ mt: 2 }} size="small" fullWidth>
+                    <Button variant="contained" sx={{ mt: 2 }} size="small" fullWidth onClick={() => verifyCertificate()}>
                         Check
                     </Button>
                 </AnimateButton>

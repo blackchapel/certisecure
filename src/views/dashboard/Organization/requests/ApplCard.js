@@ -303,6 +303,8 @@ const ApplCard = ({ isLoading, application }) => {
                                                     MyContract.abi,
                                                     MyContract.networks[networkId].address
                                                 );
+
+                                                // what next?
                                             };
 
                                             const res = await axios.post(
