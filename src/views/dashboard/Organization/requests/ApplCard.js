@@ -28,6 +28,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
+import axios from 'axios';
 const CardWrapper = styled(MainCard)(({ theme }) => ({
     backgroundColor: theme.palette.secondary.dark,
     color: '#fff',
@@ -289,6 +290,21 @@ const ApplCard = ({ isLoading, application }) => {
                                     <Button
                                         color="error"
                                         variant="contained"
+                                        onClick={async () => {
+                                            const res = await axios.post(
+                                                `https://dvki-production.up.railway.app/api/institution/reject-application?applicationId=${application._id}`,
+                                                {
+                                                    vidhita: 'kc love'
+                                                },
+                                                {
+                                                    headers: {
+                                                        Authorization: 'Bearer ' + localStorage.getItem('dvkitoken')
+                                                    }
+                                                }
+                                            );
+                                            console.log(res.data.data);
+                                            localStorage.setItem('user', JSON.stringify(res.data.data));
+                                        }}
                                         sx={{
                                             boxShadow: 0,
                                             mr: 1
@@ -324,9 +340,21 @@ const ApplCard = ({ isLoading, application }) => {
 
                                             const hashedMessage = web3.utils.sha3(Buffer.from(url).toString('base64'));
 
-                                            web3.eth.sign(hashedMessage, Web3.givenProvider.selectedAddress, function (err, result) {
-                                                console.log(err, result);
-                                                window.alert('Message signed!');
+                                            web3.eth.sign(hashedMessage, Web3.givenProvider.selectedAddress, async function (err, result) {
+                                                const res = await axios.post(
+                                                    `https://dvki-production.up.railway.app/api/institution/approve-application?applicationId=${application._id}`,
+                                                    {
+                                                        certificateUrl: url,
+                                                        hashedMessage: hashedMessage,
+                                                        signature: result
+                                                    },
+                                                    {
+                                                        headers: {
+                                                            Authorization: 'Bearer ' + localStorage.getItem('dvkitoken')
+                                                        }
+                                                    }
+                                                );
+                                                localStorage.setItem('user', JSON.stringify(res.data.data));
                                             });
                                         }}
                                     >
