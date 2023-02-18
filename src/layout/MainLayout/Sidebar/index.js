@@ -13,6 +13,7 @@ import MenuList from './MenuList';
 import LogoSection from '../LogoSection';
 import MenuCard from './MenuCard';
 import { drawerWidth } from 'store/constant';
+import Authenticity from './Authenticity';
 
 // ==============================|| SIDEBAR DRAWER ||============================== //
 
@@ -36,8 +37,9 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
                         paddingRight: '16px'
                     }}
                 >
-                    <MenuList />
-                    <MenuCard />
+                    {localStorage.getItem('user') && <MenuList />}
+                    {localStorage.getItem('user') && <MenuCard />}
+                    {!localStorage.getItem('user') && <Authenticity />}
                 </PerfectScrollbar>
             </BrowserView>
             <MobileView>

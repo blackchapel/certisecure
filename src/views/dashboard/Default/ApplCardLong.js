@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
-import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemText, Tooltip, Typography } from '@mui/material';
+import { Avatar, Box, Dialog, List, ListItem, ListItemAvatar, ListItemText, Tooltip, Typography } from '@mui/material';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
@@ -12,12 +12,15 @@ import TotalIncomeCard from 'ui-component/cards/Skeleton/TotalIncomeCard';
 
 // assets
 import StorefrontTwoToneIcon from '@mui/icons-material/StorefrontTwoTone';
+import AnimateButton from 'ui-component/extended/AnimateButton';
+import ApplCard from './ApplCard';
 
 // ==============================|| DASHBOARD - TOTAL INCOME LIGHT CARD ||============================== //
 
 const ApplCardLong = ({ isLoading, application }) => {
     const theme = useTheme();
     const [status, setStatus] = useState(application?.isVerified);
+    const [open, setOpen] = useState(false);
     const giveColor = (shade) => {
         if (shade == 'dark') {
             if (status == 'PENDING') {
@@ -78,56 +81,68 @@ const ApplCardLong = ({ isLoading, application }) => {
             {isLoading ? (
                 <TotalIncomeCard />
             ) : (
-                <CardWrapper
-                    border={false}
-                    content={false}
-                    sx={{
-                        backgroundColor: giveColor('light')
+                <AnimateButton
+                    style={{
+                        cursor: 'pointer'
                     }}
                 >
-                    <Box sx={{ p: 2 }}>
-                        <List sx={{ py: 0 }}>
-                            <ListItem alignItems="center" disableGutters sx={{ py: 0 }}>
-                                <Tooltip title={application?.isVerified}>
-                                    <ListItemAvatar>
-                                        <Avatar
-                                            variant="rounded"
-                                            sx={{
-                                                ...theme.typography.commonAvatar,
-                                                ...theme.typography.largeAvatar,
-                                                backgroundColor: giveColor('light'),
-                                                color: giveColor('dark')
-                                            }}
-                                        >
-                                            {giveIcon()}
-                                        </Avatar>
-                                    </ListItemAvatar>
-                                </Tooltip>
+                    <CardWrapper
+                        border={false}
+                        content={false}
+                        sx={{
+                            backgroundColor: giveColor('light')
+                        }}
+                        onClick={() => {
+                            application.isVerified == 'APPROVED' && setOpen(true);
+                        }}
+                    >
+                        <Box sx={{ p: 2 }}>
+                            <List sx={{ py: 0 }}>
+                                <ListItem alignItems="center" disableGutters sx={{ py: 0 }}>
+                                    <Tooltip title={application?.isVerified}>
+                                        <ListItemAvatar>
+                                            <Avatar
+                                                variant="rounded"
+                                                sx={{
+                                                    ...theme.typography.commonAvatar,
+                                                    ...theme.typography.largeAvatar,
+                                                    backgroundColor: giveColor('light'),
+                                                    color: giveColor('dark')
+                                                }}
+                                            >
+                                                {giveIcon()}
+                                            </Avatar>
+                                        </ListItemAvatar>
+                                    </Tooltip>
 
-                                <ListItemText
-                                    sx={{
-                                        py: 0,
-                                        mt: 0.45,
-                                        mb: 0.45
-                                    }}
-                                    primary={<Typography variant="h4">{application?.institutionName}</Typography>}
-                                    secondary={
-                                        <Typography
-                                            variant="subtitle2"
-                                            sx={{
-                                                color: theme.palette.grey[500],
-                                                mt: 0.5
-                                            }}
-                                        >
-                                            {`Passing Year: ${application?.studentYearOfGraduation}`}
-                                        </Typography>
-                                    }
-                                />
-                            </ListItem>
-                        </List>
-                    </Box>
-                </CardWrapper>
+                                    <ListItemText
+                                        sx={{
+                                            py: 0,
+                                            mt: 0.45,
+                                            mb: 0.45
+                                        }}
+                                        primary={<Typography variant="h4">{application?.institutionName}</Typography>}
+                                        secondary={
+                                            <Typography
+                                                variant="subtitle2"
+                                                sx={{
+                                                    color: theme.palette.grey[500],
+                                                    mt: 0.5
+                                                }}
+                                            >
+                                                {`Passing Year: ${application?.studentYearOfGraduation}`}
+                                            </Typography>
+                                        }
+                                    />
+                                </ListItem>
+                            </List>
+                        </Box>
+                    </CardWrapper>
+                </AnimateButton>
             )}
+            <Dialog open={open} onClose={() => setOpen(false)} application={application}>
+                <ApplCard />
+            </Dialog>
         </>
     );
 };

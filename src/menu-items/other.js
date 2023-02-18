@@ -7,14 +7,14 @@ const icons = { IconBrandChrome, IconHelp };
 // ==============================|| SAMPLE PAGE & DOCUMENTATION MENU ITEMS ||============================== //
 
 const other = {
-    id: 'sample-docs-roadmap',
+    id: 'public',
     type: 'group',
     children: [
         {
-            id: 'sample-page',
-            title: 'Sample Page',
+            id: 'check-authenticity',
+            title: 'Aunthenticity Check',
             type: 'item',
-            url: '/',
+            url: '/authenticity',
             icon: icons.IconBrandChrome,
             breadcrumbs: false
         },

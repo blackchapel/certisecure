@@ -37,7 +37,13 @@ const Dashboard = () => {
             <Grid container spacing={2}>
                 {applications &&
                     applications.map((application) => (
-                        <Grid item xs={12}>
+                        <Grid
+                            item
+                            xs={12}
+                            sx={{
+                                cursor: application.isVerified == 'APPROVED' ? 'pointer' : 'default'
+                            }}
+                        >
                             <ApplCardLong isLoading={isLoading} application={application} />
                         </Grid>
                     ))}

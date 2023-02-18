@@ -184,13 +184,13 @@ const ProfileSection = () => {
                                                 'aria-label': 'weight'
                                             }}
                                         />
-                                        <Divider />
                                     </Box>
+                                    <Divider />
                                     <PerfectScrollbar style={{ height: '100%', maxHeight: 'calc(100vh - 250px)', overflowX: 'hidden' }}>
                                         <Box sx={{ p: 2 }}>
-                                            <UpgradePlanCard />
-                                            <Divider />
-                                            <Card
+                                            {/* <UpgradePlanCard />
+                                            <Divider /> */}
+                                            {/* <Card
                                                 sx={{
                                                     bgcolor: theme.palette.primary.light,
                                                     my: 2
@@ -232,7 +232,7 @@ const ProfileSection = () => {
                                                     </Grid>
                                                 </CardContent>
                                             </Card>
-                                            <Divider />
+                                            <Divider /> */}
                                             <List
                                                 component="nav"
                                                 sx={{
