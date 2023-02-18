@@ -1,13 +1,10 @@
-# DVKI
+<p align='center'><img src='https://user-images.githubusercontent.com/66885378/219825716-33158241-4004-453d-8b5c-e35c9495b8d4.png' width='400'></p>
 
-<img src='https://user-images.githubusercontent.com/66885378/219825716-33158241-4004-453d-8b5c-e35c9495b8d4.png' width='400'>
-
-### Secure, hassel-free and reliable
+# CertiSecure - Revolutionizing Certificate Systems with Blockchain-based Digital Certificates.
 
 ## Project Structure
 
-- [App - React Native](https://github.com/blackchapel/typer/tree/app)
-- [Blockchain](https://github.com/blackchapel/typer/tree/blockchain)
+- [Frontend - React.js](https://github.com/blackchapel/typer/tree/frontend)
 - [Backend - Node.js](https://github.com/blackchapel/typer/tree/backend)
 
 ## Overview
@@ -42,6 +39,8 @@ The project is a digital certificate management system that utilizes blockchain 
 ![status](https://user-images.githubusercontent.com/66885378/219833986-76318b32-cab6-4538-9014-0028a4e6111f.png)
 ![wallet](https://user-images.githubusercontent.com/66885378/219834051-a8516967-edd6-4f63-8139-c138c7685d7b.png)
 ![request](https://user-images.githubusercontent.com/66885378/219834185-3d91d10c-c11f-4fee-900f-eac2c6f20d18.png)
+
+## System Architecture
 
 ## Contributers
 
