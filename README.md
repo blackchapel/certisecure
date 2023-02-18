@@ -37,7 +37,8 @@ The project is a digital certificate management system that utilizes blockchain 
 - MetaMask Wallet
 
 ## Screenshots
-
+![landing_page](https://user-images.githubusercontent.com/66885378/219833159-86dd9af0-91f8-40b9-a0fc-34efdf6c1981.png)
+![login](https://user-images.githubusercontent.com/66885378/219833215-e93142c0-caa8-471a-b0f3-0e20876c0065.png)
 
 ## Contributers
 
