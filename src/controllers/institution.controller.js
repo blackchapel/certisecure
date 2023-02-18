@@ -132,14 +132,14 @@ const verifyCertificate = async (req, res) => {
 
 const searchSignature = async (req, res) => {
     try {
-        const institutions = await User.find();
+        const institutions = await User.find({ role: 'INSTITUTION' });
 
         if (institutions.length === 0) {
             res.status(404).json({
                 message: 'no institutions found'
             });
         } else {
-            let result;
+            let result = {};
             institutions.forEach((item) => {
                 item.applications.forEach((itemInception) => {
                     if (itemInception.signature === req.query.signature) {
