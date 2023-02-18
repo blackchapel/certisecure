@@ -1,6 +1,6 @@
 // Contract based on [https://docs.openzeppelin.com/contracts/4.x/erc721] (https://docs.openzeppelin.com/contracts/4.x/erc721)
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.5.0;
+pragma solidity ^0.8.0;
  
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
@@ -13,6 +13,8 @@ contract MyNFT is ERC721URIStorage, Ownable {
 
     constructor() ERC721("MyNFT", "NFT") {}
 
+    event generatedNFT(string uid);
+
     function mintNFT(address recipient, string memory tokenURI)
         public onlyOwner
         returns (uint256)
@@ -23,6 +25,8 @@ contract MyNFT is ERC721URIStorage, Ownable {
         _mint(recipient, newItemId);
         _setTokenURI(newItemId, tokenURI);
 
+        emit generatedNFT(tokenURI);
+        
         return newItemId;
     }
 }
