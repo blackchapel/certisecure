@@ -36,7 +36,7 @@ const ApplCard = ({ isLoading, application }) => {
     const CardWrapper = styled(MainCard)(({ theme }) => ({
         // backgroundColor: theme.palette.secondary.dark,
         // color: '#fff',
-        overflow: 'hidden',
+        overflow: 'scroll',
 
         height: {
             xs: '100%',
@@ -47,8 +47,8 @@ const ApplCard = ({ isLoading, application }) => {
         width: {
             xs: '100%',
             sm: '100%',
-            md: '50%',
-            lg: '50%'
+            md: '90%',
+            lg: '90%'
         },
         display: 'flex',
         justifyContent: 'center',

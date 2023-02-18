@@ -18,15 +18,15 @@ const dashboard = {
             url: '/dashboard',
             icon: icons.IconDashboard,
             breadcrumbs: false
-        },
-        {
-            id: 'admission',
-            title: 'Admission Applications',
-            type: 'item',
-            url: '/applications',
-            icon: icons.IconClipboardPlus,
-            breadcrumbs: false
         }
+        // {
+        //     id: 'admission',
+        //     title: 'Admission Applications',
+        //     type: 'item',
+        //     url: '/applications',
+        //     icon: icons.IconClipboardPlus,
+        //     breadcrumbs: false
+        // }
     ]
 };
 
