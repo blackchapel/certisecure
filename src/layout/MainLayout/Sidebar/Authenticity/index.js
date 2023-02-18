@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-
+import { useState } from 'react';
 // material-ui
 import { styled, useTheme } from '@mui/material/styles';
 import {
@@ -88,6 +88,18 @@ LinearProgressWithLabel.propTypes = {
 
 const Authenticity = () => {
     const theme = useTheme();
+    const [serial, setSerial] = useState('');
+    const verifyCertificate = () => {
+        const MyContract = require('../../../../contracts/Verification.sol');
+        const address = process.env.CELO_ADDRESS_KEY;
+        const privateText = process.env.CELO_PRIVATE_KEY;
+        const celoUrl = 'https://alfajores-forno.celo-testnet.org/';
+        const web3 = new Web3(celoUrl);
+        const networkId = newweb3.eth.getId();
+        const myContract = new web3.eth.net.Contract(MyContract.abi, MyContract.networks[networkId].address);
+
+        MyContract.recover();
+    };
 
     return (
         <CardStyle>
@@ -121,7 +133,13 @@ const Authenticity = () => {
                         />
                     </ListItem>
                 </List>
-                <TextField label="Enter Certificate ID" variant="outlined" size="small" sx={{ mt: 2 }} />
+                <TextField
+                    label="Enter Certificate ID"
+                    variant="outlined"
+                    size="small"
+                    sx={{ mt: 2 }}
+                    onChange={(e) => setSerial(e.target.value)}
+                />
                 <AnimateButton>
                     <Button variant="contained" sx={{ mt: 2 }} size="small" fullWidth>
                         Check
