@@ -1,6 +1,6 @@
 <p align='center'><img src='https://user-images.githubusercontent.com/66885378/219825716-33158241-4004-453d-8b5c-e35c9495b8d4.png' width='400'></p>
 
-# CertiSecure - Revolutionizing Certificate Systems with Blockchain-based Digital Certificates.
+## CertiSecure - Revolutionizing Certificate Systems with Blockchain-based Digital Certificates.
 
 ## Project Structure
 
@@ -41,6 +41,7 @@ The project is a digital certificate management system that utilizes blockchain 
 ![request](https://user-images.githubusercontent.com/66885378/219834185-3d91d10c-c11f-4fee-900f-eac2c6f20d18.png)
 
 ## System Architecture
+![architecture](https://user-images.githubusercontent.com/66885378/219835662-8977f6b4-19c0-4db7-b1e8-15b6801179fb.png)
 
 ## Contributers
 
