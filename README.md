@@ -39,6 +39,9 @@ The project is a digital certificate management system that utilizes blockchain 
 ## Screenshots
 ![landing_page](https://user-images.githubusercontent.com/66885378/219833159-86dd9af0-91f8-40b9-a0fc-34efdf6c1981.png)
 ![login](https://user-images.githubusercontent.com/66885378/219833215-e93142c0-caa8-471a-b0f3-0e20876c0065.png)
+![status](https://user-images.githubusercontent.com/66885378/219833986-76318b32-cab6-4538-9014-0028a4e6111f.png)
+![wallet](https://user-images.githubusercontent.com/66885378/219834051-a8516967-edd6-4f63-8139-c138c7685d7b.png)
+![request](https://user-images.githubusercontent.com/66885378/219834185-3d91d10c-c11f-4fee-900f-eac2c6f20d18.png)
 
 ## Contributers
 
