@@ -1,1 +1,1 @@
-# Frontend - React.js
+# Frontend - React.JS
