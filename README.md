@@ -1,6 +1,7 @@
 # DVKI
 
-# ![CeriSecure](https://github.com/blackchapel/hackniche_dvki/blob/frontend/src/assets/images/certi.png)
+<img src='https://user-images.githubusercontent.com/66885378/219825716-33158241-4004-453d-8b5c-e35c9495b8d4.png' width='400'>
+
 ### Secure, hassel-free and reliable
 
 ## Project Structure
@@ -19,12 +20,14 @@ The project is a digital certificate management system that utilizes blockchain 
 - The serial number and certificates' meta-data are stored on IPFS with Infura.
 - Upon approval of the certificate, the user receives the serial number and a QR code.
 - Scanning the QR code directs the user to a webpage verifying the validity of the particular issued certificate.
-- The user also receives a certificate of authenticity as a NFT.
 - This certificate of authenticity can be distributed with other institutions as a sharable link.
 - The trailing part of the link is the same as the serial number of the issued certificate.
+
+## Features implemented ... but not integrated
+- The user receives a certificate of authenticity as a NFT.
 - The ownership of the NFT can be transferred between institutions if the user moves institutions.
 
-## Techology Stack
+## Techologies Used
 - Web3.js
 - IPFS w/ Infura
 - Celo Blockchain Network
@@ -32,6 +35,9 @@ The project is a digital certificate management system that utilizes blockchain 
 - Solidity
 - Truffle
 - MetaMask Wallet
+
+## Screenshots
+
 
 ## Contributers
 
