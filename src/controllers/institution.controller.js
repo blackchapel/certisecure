@@ -1,10 +1,4 @@
 const User = require('../models/user.schema');
-const dotenv = require('dotenv').config();
-const Web3 = require('web3');
-const MyContract = require('../contracts/abis/certisecure.json');
-const address = process.env.CELO_ADDRESS_KEY;
-const privateText = process.env.CELO_PRIVATE_KEY;
-const celoUrl = 'https://alfajores-forno.celo-testnet.org/';
 
 const approveApplication = async (req, res) => {
     try {
@@ -16,47 +10,32 @@ const approveApplication = async (req, res) => {
             });
         }
 
-        const application = institution.applications.filter((item) => {
+        let studentId;
+
+        institution.applications = institution.applications.filter((item) => {
             if (item._id.toString() === req.query.applicationId.toString()) {
-                return item;
+                item.certificateUrl = req.body.certificateUrl;
+                item.hashedMessage = req.body.hashedMessage;
+                item.signature = req.body.signature;
+                item.isVerified = true;
+                studentId = item.studentId;
             }
+            return item;
         });
 
-        const student = await User.findById(application.studentId);
+        const student = await User.findById(studentId);
 
-        const web3 = new Web3(celoUrl);
-        const networkId = newweb3.eth.getId();
-        const myContract = new web3.eth.net.Contract(
-            MyContract.abi,
-            MyContract.networks[networkId].address
-        );
-
-        const tx = myContract.methods.createUser(student.name, student.role);
-        const gas = await tx.estimateGas({ from: institution.walletAddress });
-        const gasPrice = await web3.eth.getGasPrice();
-        const data = tx.encodeABI();
-        const nonce = await web3.eth.getTransactionCount(address);
-
-        const signedTx = await web3.eth.accounts.signTransaction(
-            {
-                to: myContract.options.address,
-                data,
-                gas,
-                gasPrice,
-                nonce,
-                chainId: networkId
-            },
-            privateKey //sign w metamask wallet
-        );
-
-        institution.applications = institution.applications.forEach((item) => {
+        student.applications = student.applications.filter((item) => {
             if (item._id.toString() === req.query.applicationId.toString()) {
+                item.hashedMessage = req.body.hashedMessages;
+                item.signature = req.body.signature;
                 item.isVerified = true;
             }
             return item;
         });
 
         await institution.save();
+        await student.save();
 
         res.status(200).json({
             message: 'Application Approved',

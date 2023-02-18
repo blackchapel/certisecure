@@ -66,6 +66,15 @@ const userSchema = new mongoose.Schema(
                     },
                     studentDob: {
                         type: String
+                    },
+                    certificateUrl: {
+                        type: String
+                    },
+                    signature: {
+                        type: String
+                    },
+                    hashedMessage: {
+                        type: String
                     }
                 }
             ]
