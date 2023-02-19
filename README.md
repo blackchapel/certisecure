@@ -65,7 +65,7 @@ The project is a digital certificate management system that utilizes blockchain 
 ## System Architecture
 ![architecture](https://user-images.githubusercontent.com/66885378/219835662-8977f6b4-19c0-4db7-b1e8-15b6801179fb.png)
 
-## Contributers
+## Contributors
 
 - [Krishna - Design/Blockchain](https://github.com/krishna-shetty)
 - [Kunal - Blockchain/Backend](https://github.com/blackchapel)
