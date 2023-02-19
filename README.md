@@ -34,11 +34,20 @@ The project is a digital certificate management system that utilizes blockchain 
 - MetaMask Wallet
 
 ## Screenshots
+- Landing Page
 ![landing_page](https://user-images.githubusercontent.com/66885378/219833159-86dd9af0-91f8-40b9-a0fc-34efdf6c1981.png)
+- Login Page
 ![login](https://user-images.githubusercontent.com/66885378/219833215-e93142c0-caa8-471a-b0f3-0e20876c0065.png)
+- Requested Certificates from the User's Student Account
 ![status](https://user-images.githubusercontent.com/66885378/219833986-76318b32-cab6-4538-9014-0028a4e6111f.png)
+- Connection to MetaMask Wallet
 ![wallet](https://user-images.githubusercontent.com/66885378/219834051-a8516967-edd6-4f63-8139-c138c7685d7b.png)
+- Request on the Instituition Dashboard
 ![request](https://user-images.githubusercontent.com/66885378/219936889-059385f6-9ad3-4729-b1de-309d255b3a4c.png)
+- QR Code available to the Student once Request is Approved
+![QR Code and Serial Number](https://user-images.githubusercontent.com/66885378/219937141-0d145702-cb58-4673-b209-ef049a49afe6.png)
+- Certificate can be viewed by an Institution on Infura upon Scanning the QR Code 
+![Certificate on Infura](https://user-images.githubusercontent.com/66885378/219937146-3177b742-05f4-43e4-8998-9a32cf13b061.png)
 
 ## System Architecture
 ![architecture](https://user-images.githubusercontent.com/66885378/219835662-8977f6b4-19c0-4db7-b1e8-15b6801179fb.png)
