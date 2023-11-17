@@ -124,7 +124,7 @@ const Authenticity = () => {
                     </ListItem>
                 </List>
                 <TextField
-                    label="Enter Certificate ID"
+                    label="Enter Certificate Serial No."
                     variant="outlined"
                     size="small"
                     sx={{ mt: 2 }}

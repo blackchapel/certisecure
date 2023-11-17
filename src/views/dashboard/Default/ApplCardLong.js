@@ -19,7 +19,7 @@ import ApplCard from './ApplCard';
 
 const ApplCardLong = ({ isLoading, application }) => {
     const theme = useTheme();
-    const [status, setStatus] = useState(application?.isVerified);
+    const [status1, setStatus1] = useState(application?.isVerified);
     const [open, setOpen] = useState(false);
     const giveColor = (shade) => {
         if (shade == 'dark') {
@@ -40,6 +40,7 @@ const ApplCardLong = ({ isLoading, application }) => {
             }
         }
     };
+
     const CardWrapper = styled(MainCard)(({ theme }) => ({
         overflow: 'hidden',
         position: 'relative',
@@ -121,7 +122,11 @@ const ApplCardLong = ({ isLoading, application }) => {
                                             mt: 0.45,
                                             mb: 0.45
                                         }}
-                                        primary={<Typography variant="h4">{application?.institutionName}</Typography>}
+                                        primary={
+                                            <Typography variant="h4">
+                                                {randomNames[Math.floor(Math.random() * randomNames.length)]}
+                                            </Typography>
+                                        }
                                         secondary={
                                             <Typography
                                                 variant="subtitle2"
@@ -140,7 +145,7 @@ const ApplCardLong = ({ isLoading, application }) => {
                     </CardWrapper>
                 </AnimateButton>
             )}
-            <Dialog open={open} onClose={() => setOpen(false)}>
+            <Dialog open={open} onClose={() => setOpen(false)} width="100%" height="100%">
                 <ApplCard application={application} />
             </Dialog>
         </>

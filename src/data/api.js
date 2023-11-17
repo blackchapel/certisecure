@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'https://dvki-production.up.railway.app/api';
+const url = 'https://certisecure-backend.onrender.com/api';
 
 export const getInstitutions = async () => {
     try {

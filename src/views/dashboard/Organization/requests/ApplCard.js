@@ -321,7 +321,7 @@ const ApplCard = ({ isLoading, application, setReload, reload }) => {
                                                 onClick={async () => {
                                                     setLoadData(true);
                                                     const res = await axios.post(
-                                                        `https://dvki-production.up.railway.app/api/institution/reject-application?applicationId=${application._id}`,
+                                                        `https://certisecure-backend.onrender.com/api/institution/reject-application?applicationId=${application._id}`,
                                                         {
                                                             vidhita: 'kc love'
                                                         },
@@ -378,7 +378,7 @@ const ApplCard = ({ isLoading, application, setReload, reload }) => {
                                                         Web3.givenProvider.selectedAddress,
                                                         async function (err, result) {
                                                             const res = await axios.post(
-                                                                `https://dvki-production.up.railway.app/api/institution/approve-application?applicationId=${application._id}`,
+                                                                `https://certisecure-backend.onrender.com/api/institution/approve-application?applicationId=${application._id}`,
                                                                 {
                                                                     certificateUrl: url,
                                                                     hashedMessage: hashedMessage,

@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 // material-ui
 import { styled, useTheme } from '@mui/material/styles';
-import { Avatar, Box, Grid, Menu, MenuItem, Typography } from '@mui/material';
+import { Avatar, Box, Grid, Menu, MenuItem, Typography, Card } from '@mui/material';
 
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
@@ -18,6 +18,7 @@ import FileCopyTwoToneIcon from '@mui/icons-material/FileCopyOutlined';
 import PictureAsPdfTwoToneIcon from '@mui/icons-material/PictureAsPdfOutlined';
 import ArchiveTwoToneIcon from '@mui/icons-material/ArchiveOutlined';
 import { QRCodeSVG } from 'qrcode.react';
+import degree from 'assets/images/degree.png';
 // ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
 
 const clientUrl = 'http://www.localhost:3000';
@@ -29,7 +30,7 @@ const ApplCard = ({ isLoading, application }) => {
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
-
+    console.log(application && application.signature);
     const handleClose = () => {
         setAnchorEl(null);
     };
@@ -41,14 +42,14 @@ const ApplCard = ({ isLoading, application }) => {
         height: {
             xs: '100%',
             sm: '100%',
-            md: '50%',
-            lg: '50%'
+            md: '100%',
+            lg: '100%'
         },
         width: {
             xs: '100%',
             sm: '100%',
-            md: '90%',
-            lg: '90%'
+            md: '100%',
+            lg: '100%'
         },
         display: 'flex',
         justifyContent: 'center',
@@ -89,9 +90,18 @@ const ApplCard = ({ isLoading, application }) => {
             {isLoading ? (
                 <SkeletonEarningCard />
             ) : (
-                <CardWrapper border={false} content={false}>
+                <Card
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: '100%',
+                        flexDirection: 'column',
+                        width: '100%'
+                    }}
+                >
                     <Box sx={{ p: 2, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <Grid container direction="column" justifyContent={'center'} alignItems={'center'}>
+                        <Grid container justifyContent={'center'} alignItems={'center'}>
                             <Grid
                                 item
                                 sx={{
@@ -99,6 +109,7 @@ const ApplCard = ({ isLoading, application }) => {
                                     justifyContent: 'center',
                                     alignItems: 'center'
                                 }}
+                                xs={6}
                             >
                                 <Grid container alignItems="center" justifyContent={'center'}>
                                     <Grid item xs={12}>
@@ -122,11 +133,11 @@ const ApplCard = ({ isLoading, application }) => {
                                             alignItems: 'center'
                                         }}
                                     >
-                                        <QRCodeSVG value={`${clientUrl}/verify/${application && application.signature}`} size={250} />
+                                        <QRCodeSVG value={`${clientUrl}/verify/${application && application.signature}`} size={80} />
                                     </Grid>
                                 </Grid>
                             </Grid>
-                            <Grid item sx={{ my: 1.25 }}>
+                            <Grid item sx={{ my: 1.25 }} xs={6}>
                                 <Typography
                                     sx={{
                                         fontSize: '1rem',
@@ -144,12 +155,23 @@ const ApplCard = ({ isLoading, application }) => {
                                     align="center"
                                     textAlign={'center'}
                                 >
-                                    {application && application.signature ? application.signature : 'sgsdkjh545dsfsfd'}
+                                    {application && application.signature ? application.signature.slice(0, 20) : 'sgsdkjh545dsfsfd'}
                                 </Typography>
+                            </Grid>
+                            <Grid
+                                item
+                                sx={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    my: 1.25
+                                }}
+                            >
+                                <img src={degree} alt="degree" width="60%" />
                             </Grid>
                         </Grid>
                     </Box>
-                </CardWrapper>
+                </Card>
             )}
         </>
     );

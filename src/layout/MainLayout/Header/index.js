@@ -78,7 +78,7 @@ const Header = ({ handleLeftDrawerToggle }) => {
                             window.ethereum.request({ method: 'eth_requestAccounts' }).then((res) => {
                                 setConnected(true);
                                 axios.patch(
-                                    'https://dvki-production.up.railway.app/api/user/wallet-address',
+                                    'https://certisecure-backend.onrender.com/api/user/wallet-address',
                                     {
                                         walletAddress: res[0]
                                     },
