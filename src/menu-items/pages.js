@@ -17,7 +17,7 @@ const pages = {
     children: [
         {
             id: 'request',
-            title: 'Issue a Certificate',
+            title: 'Request a Certificate',
             type: 'item',
             icon: icons.IconCirclePlus,
             url: '/certificate/request'

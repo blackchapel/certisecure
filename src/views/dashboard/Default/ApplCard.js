@@ -24,7 +24,7 @@ import degree from 'assets/images/degree.png';
 const clientUrl = 'http://www.localhost:3000';
 const ApplCard = ({ isLoading, application }) => {
     const theme = useTheme();
-    const signature = (application && application.signature) || application?.hashedMessage;
+    const signature = (application && application.signature) || 'JADBCJAFBD';
     const [anchorEl, setAnchorEl] = useState(null);
 
     const handleClick = (event) => {
