@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 // material-ui
 import { styled, useTheme } from '@mui/material/styles';
-import { Avatar, Box, Grid, Menu, MenuItem, Typography, Card } from '@mui/material';
+import { Avatar, Box, Grid, Menu, MenuItem, Typography, Card, Button } from '@mui/material';
 
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
@@ -19,6 +19,7 @@ import PictureAsPdfTwoToneIcon from '@mui/icons-material/PictureAsPdfOutlined';
 import ArchiveTwoToneIcon from '@mui/icons-material/ArchiveOutlined';
 import { QRCodeSVG } from 'qrcode.react';
 import degree from 'assets/images/degree.png';
+
 // ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
 
 const clientUrl = 'https://certisecure.vercel.app';
@@ -167,7 +168,9 @@ const ApplCard = ({ isLoading, application }) => {
                                     my: 1.25
                                 }}
                             >
-                                <img src={degree} alt="degree" width="60%" />
+                                <Button href={application.certificateUrl} variant="contained" color="secondary" sx={{ mt: 3 }}>
+                                    View Certificate
+                                </Button>
                             </Grid>
                         </Grid>
                     </Box>
