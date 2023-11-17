@@ -24,7 +24,7 @@ import degree from 'assets/images/degree.png';
 const clientUrl = 'http://www.localhost:3000';
 const ApplCard = ({ isLoading, application }) => {
     const theme = useTheme();
-
+    const signature = (application && application.signature) || application?.hashedMessage;
     const [anchorEl, setAnchorEl] = useState(null);
 
     const handleClick = (event) => {
@@ -133,7 +133,7 @@ const ApplCard = ({ isLoading, application }) => {
                                             alignItems: 'center'
                                         }}
                                     >
-                                        <QRCodeSVG value={`${clientUrl}/verify/${application && application.signature}`} size={80} />
+                                        <QRCodeSVG value={`${clientUrl}/verify/${signature}`} size={80} />
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -155,7 +155,7 @@ const ApplCard = ({ isLoading, application }) => {
                                     align="center"
                                     textAlign={'center'}
                                 >
-                                    {application && application.signature ? application.signature.slice(0, 20) : 'sgsdkjh545dsfsfd'}
+                                    {signature ? signature.slice(0, 20) : 'sgsdkjh545dsfsfd'}
                                 </Typography>
                             </Grid>
                             <Grid

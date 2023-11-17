@@ -19,7 +19,7 @@ import ApplCard from './ApplCard';
 
 const ApplCardLong = ({ isLoading, application }) => {
     const theme = useTheme();
-    const [status1, setStatus1] = useState(application?.isVerified);
+    const [status, setStatus] = useState(application?.isVerified);
     const [open, setOpen] = useState(false);
     const giveColor = (shade) => {
         if (shade == 'dark') {
@@ -122,11 +122,7 @@ const ApplCardLong = ({ isLoading, application }) => {
                                             mt: 0.45,
                                             mb: 0.45
                                         }}
-                                        primary={
-                                            <Typography variant="h4">
-                                                {randomNames[Math.floor(Math.random() * randomNames.length)]}
-                                            </Typography>
-                                        }
+                                        primary={<Typography variant="h4">{application?.institutionName}</Typography>}
                                         secondary={
                                             <Typography
                                                 variant="subtitle2"

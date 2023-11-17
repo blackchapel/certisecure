@@ -43,7 +43,7 @@ function VerifyCertificate() {
     }, []);
 
     return (
-        <ProtectedRoute>
+        <>
             {Object.keys(data).length > 0 ? (
                 <div>
                     {data.certificateUrl ? (
@@ -87,7 +87,7 @@ function VerifyCertificate() {
                     <Typography sx={{ fontWeight: 500, fontSize: '1.5rem' }}>Please wait..</Typography>
                 </div>
             )}
-        </ProtectedRoute>
+        </>
     );
 }
 
