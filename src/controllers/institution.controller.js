@@ -30,6 +30,7 @@ const approveApplication = async (req, res) => {
                 item.hashedMessage = req.body.hashedMessage;
                 item.signature = req.body.signature;
                 item.isVerified = 'APPROVED';
+                item.certificateUrl = req.body.certificateUrl;
             }
             return item;
         });
