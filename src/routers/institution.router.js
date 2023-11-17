@@ -28,10 +28,6 @@ router.post(
     verifyCertificate
 );
 
-router.get(
-    '/search-signature',
-    [auth.verifyJwt, auth.roleInstitution],
-    searchSignature
-);
+router.get('/search-signature', searchSignature);
 
 module.exports = router;
