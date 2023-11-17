@@ -21,7 +21,7 @@ import { QRCodeSVG } from 'qrcode.react';
 import degree from 'assets/images/degree.png';
 // ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
 
-const clientUrl = 'http://www.localhost:3000';
+const clientUrl = 'https://certisecure.vercel.app';
 const ApplCard = ({ isLoading, application }) => {
     const theme = useTheme();
     const signature = (application && application.signature) || 'JADBCJAFBD';
