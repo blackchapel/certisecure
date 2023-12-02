@@ -168,7 +168,13 @@ const ApplCard = ({ isLoading, application }) => {
                                     my: 1.25
                                 }}
                             >
-                                <Button href={application.certificateUrl} target="_blank" variant="contained" color="secondary" sx={{ mt: 3 }}>
+                                <Button
+                                    href={application.certificateUrl}
+                                    target="_blank"
+                                    variant="contained"
+                                    color="secondary"
+                                    sx={{ mt: 3 }}
+                                >
                                     View Certificate
                                 </Button>
                             </Grid>

@@ -2,9 +2,11 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 
 // blockchain
-import Web3 from 'web3';
 import * as ipfsClient from 'ipfs-http-client';
 import { Buffer } from 'buffer';
+import { abi } from './../../../../abis';
+import { useConnect, useContractWrite } from 'wagmi';
+import { InjectedConnector } from 'wagmi/connectors/injected';
 
 // material-ui
 import { styled, useTheme } from '@mui/material/styles';
@@ -15,9 +17,7 @@ import MainCard from 'ui-component/cards/MainCard';
 import SkeletonEarningCard from 'ui-component/cards/Skeleton/EarningCard';
 
 // assets
-import EarningIcon from 'assets/images/icons/earning.svg';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import GetAppTwoToneIcon from '@mui/icons-material/GetAppOutlined';
 import FileCopyTwoToneIcon from '@mui/icons-material/FileCopyOutlined';
 import PictureAsPdfTwoToneIcon from '@mui/icons-material/PictureAsPdfOutlined';
@@ -26,8 +26,6 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import loadingImg from 'assets/images/loading-lock.gif';
 const CardWrapper = styled(MainCard)(({ theme }) => ({
@@ -75,6 +73,7 @@ const ApplCard = ({ isLoading, application, setReload, reload }) => {
     const [open, setOpen] = useState(false);
     const [file, setFile] = useState('');
     const [loadData, setLoadData] = useState(false);
+
     const handleClickOpenModal = () => {
         setOpen(true);
     };
@@ -89,6 +88,16 @@ const ApplCard = ({ isLoading, application, setReload, reload }) => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const { connectAsync } = useConnect({
+        connector: new InjectedConnector()
+    });
+
+    const { writeAsync, data } = useContractWrite({
+        address: '0x15210f16449A088D2F696866d9B72aEFB6b3685C',
+        abi: abi,
+        functionName: 'issueCertificate'
+    });
 
     return (
         <>
@@ -368,35 +377,28 @@ const ApplCard = ({ isLoading, application, setReload, reload }) => {
                                                     let result = await client.add(file);
                                                     let url = 'https://dvki.infura-ipfs.io/ipfs/' + result.path;
 
-                                                    console.log(url);
+                                                    await connectAsync();
+                                                    await writeAsync({
+                                                        args: [url]
+                                                    });
 
-                                                    const web3 = new Web3(Web3.givenProvider);
-                                                    console.log(Web3.givenProvider.selectedAddress);
-
-                                                    const hashedMessage = web3.utils.sha3(Buffer.from(url).toString('base64'));
-
-                                                    web3.eth.sign(
-                                                        hashedMessage,
-                                                        Web3.givenProvider.selectedAddress,
-                                                        async function (err, result) {
-                                                            const res = await axios.post(
-                                                                `https://certisecure-backend.onrender.com/api/institution/approve-application?applicationId=${application._id}`,
-                                                                {
-                                                                    certificateUrl: url,
-                                                                    hashedMessage: hashedMessage,
-                                                                    signature: result
-                                                                },
-                                                                {
-                                                                    headers: {
-                                                                        Authorization: 'Bearer ' + localStorage.getItem('dvkitoken')
-                                                                    }
-                                                                }
-                                                            );
-                                                            localStorage.setItem('user', JSON.stringify(res.data.data));
-                                                            setLoadData(false);
-                                                            setReload(!reload);
+                                                    const res = await axios.post(
+                                                        `https://certisecure-backend.onrender.com/api/institution/approve-application?applicationId=${application._id}`,
+                                                        {
+                                                            certificateUrl: url,
+                                                            hashedMessage: `0x${result.path}`,
+                                                            signature: `0x${result.path}`
+                                                        },
+                                                        {
+                                                            headers: {
+                                                                Authorization: 'Bearer ' + localStorage.getItem('dvkitoken')
+                                                            }
                                                         }
                                                     );
+
+                                                    localStorage.setItem('user', JSON.stringify(res.data.data));
+                                                    setLoadData(false);
+                                                    setReload(!reload);
                                                 }}
                                             >
                                                 Approve

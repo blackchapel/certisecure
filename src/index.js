@@ -13,14 +13,36 @@ import { store } from 'store';
 import 'assets/scss/style.scss';
 import config from './config';
 
+// web3
+import { WagmiConfig, configureChains, createConfig, sepolia } from 'wagmi';
+import { alchemyProvider } from 'wagmi/providers/alchemy';
+import { InjectedConnector } from 'wagmi/connectors/injected';
+
 // ==============================|| REACT DOM RENDER  ||============================== //
+
+const { chains, publicClient } = configureChains([sepolia], [alchemyProvider({ apiKey: 'wz0rM-QDUZ5Mkyxv4RLVpya1C8RgjfLy' })]);
+const configs = createConfig({
+    autoConnect: true,
+    publicClient,
+    connectors: [
+        new InjectedConnector({
+            chains,
+            options: {
+                name: 'Injected',
+                shimDisconnect: true
+            }
+        })
+    ]
+});
 
 const container = document.getElementById('root');
 const root = createRoot(container); // createRoot(container!) if you use TypeScript
 root.render(
     <Provider store={store}>
         <BrowserRouter basename={config.basename}>
-            <App />
+            <WagmiConfig config={configs}>
+                <App />
+            </WagmiConfig>
         </BrowserRouter>
     </Provider>
 );

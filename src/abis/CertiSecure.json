@@ -1,0 +1,41 @@
+[
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "uid",
+                "type": "string"
+            }
+        ],
+        "name": "generatedCertificate",
+        "type": "event"
+    },
+    {
+        "inputs": [],
+        "name": "cCount",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_url",
+                "type": "string"
+            }
+        ],
+        "name": "issueCertificate",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }
+]
