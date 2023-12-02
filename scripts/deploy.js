@@ -3,9 +3,9 @@ const { ethers, run, network } = require('hardhat');
 
 // async main
 async function main() {
-    const CertisecureFactory = await ethers.getContractFactory('Certisecure');
+    const CertiSecureFactory = await ethers.getContractFactory('CertiSecure');
     console.log('Deploying contract...');
-    const certisecure = await CertisecureFactory.deploy();
+    const certisecure = await CertiSecureFactory.deploy();
     await certisecure.deployed();
     console.log(`Deployed contract to: ${certisecure.address}`);
     // what happens when we deploy to our hardhat network?
@@ -15,14 +15,14 @@ async function main() {
         await verify(certisecure.address, []);
     }
 
-    const currentValue = await certisecure.retrieve();
-    console.log(`Current Value is: ${currentValue}`);
+    // const currentValue = await certisecure.retrieve();
+    // console.log(`Current Value is: ${currentValue}`);
 
     // Update the current value
-    const transactionResponse = await certisecure.store(7);
-    await transactionResponse.wait(1);
-    const updatedValue = await certisecure.retrieve();
-    console.log(`Updated Value is: ${updatedValue}`);
+    // const transactionResponse = await certisecure.store(7);
+    // await transactionResponse.wait(1);
+    // const updatedValue = await certisecure.retrieve();
+    // console.log(`Updated Value is: ${updatedValue}`);
 }
 
 // async function verify(contractAddress, args) {
