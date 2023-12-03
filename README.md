@@ -63,7 +63,7 @@ The project is a digital certificate management system that utilizes blockchain 
 ![Certificate on Infura](https://user-images.githubusercontent.com/66885378/219937146-3177b742-05f4-43e4-8998-9a32cf13b061.png)
 
 ## System Architecture
-![architecture](https://user-images.githubusercontent.com/66885378/219835662-8977f6b4-19c0-4db7-b1e8-15b6801179fb.png)
+![architecture](https://github.com/blackchapel/certisecure/assets/70828254/adf9765a-2ac3-41ee-8840-751eb744b79b.png)
 
 ## Contributors
 
